@@ -1,8 +1,13 @@
 import { SearchOutlined, ShoppingCartOutlined, UserOutlined } from '@ant-design/icons'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import LOGOCustomize from "~/resources/LOGOCustomize.png"
 function Header() {
+    const location = useLocation()
     const navigate = useNavigate()
+    const hideHeaderForPath = ['/verify']
+    if (hideHeaderForPath.some(path => location.pathname.includes(path))) {
+        return <></>
+    }
     const goNavigate = (url: string) => {
         navigate(url)
     }
