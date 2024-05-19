@@ -15,7 +15,7 @@ function Header() {
         <div>
             <div className='flex justify-around p-2'>
                 <div className='flex h-1/2 pt-2 relative w-1/2'>
-                    <img src={LOGOCustomize} className='w-36 mr-12' />
+                    <img onClick={() => { navigate("/") }} src={LOGOCustomize} className='w-36 mr-12' />
                     <input className='p-2 border-red-300 border relative w-full focus:outline-none' placeholder='Search'></input>
                     <div className='w-12 h-10 flex items-center justify-center absolute bg-red-600 right-0'>
                         <SearchOutlined style={{ color: "white", fontSize: "130%" }} />

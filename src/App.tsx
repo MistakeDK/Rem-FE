@@ -5,6 +5,7 @@ import Header from '~/component/Header'
 import Home from '~/page/Home'
 import SignUp from '~/page/SignUp'
 import VerifyAccount from '~/page/VerifyAccount'
+import ProductDetail from '~/page/ProductDetail'
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route path='/login' element={<Login />}></Route>
         <Route path='/verify' element={<VerifyAccount />}></Route>
         <Route path='/signUp' element={<SignUp />}></Route>
+        <Route path='/product/:id' element={<ProductDetail />}></Route>
       </Routes>
     </BrowserRouter>
   )

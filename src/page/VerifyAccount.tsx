@@ -1,10 +1,11 @@
 import { CheckCircleFilled, LoadingOutlined } from '@ant-design/icons'
 import { Skeleton, message } from 'antd'
 import React, { useEffect, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import UserService from '~/service/UserService'
 
 function VerifyAccount() {
+    const navigate = useNavigate()
     const [searchParams] = useSearchParams()
     const code = searchParams.get(`code`) || ''
     console.log(code)
@@ -28,7 +29,7 @@ function VerifyAccount() {
                 <div className='rounded-2xl w-6/12 border h-80 flex flex-col p-8 items-center justify-around'>
                     <CheckCircleFilled style={{ fontSize: "400%", color: "green" }} />
                     <span>Xác Thực Thành Công </span>
-                    <button className='bg-green-600 h-12 rounded-2xl px-4 hover:text-white transition-colors duration-200 ease-in-out'>Trở lại trang chủ</button>
+                    <button onClick={() => { navigate("/") }} className='bg-green-600 h-12 rounded-2xl px-4 hover:text-white transition-colors duration-200 ease-in-out'>Trở lại trang chủ</button>
                 </div>
             )}
 
