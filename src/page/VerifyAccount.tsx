@@ -13,7 +13,9 @@ function VerifyAccount() {
     useEffect(() => {
         const callApi = async () => {
             await UserService.verifyAccount(code).
-                then(() => setTimeout(() => SetLoading(!loading), 2000)).
+                then((res) => {
+                    SetLoading(!loading)
+                }).
                 catch(() => { message.error("Xác thực thất bại") })
         }
         callApi()

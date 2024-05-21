@@ -31,7 +31,7 @@ function ProductList() {
                 return (
                     <div className='flex flex-col rounded-lg border text-xl cursor-pointer p-2 bg-green-300' key={key} onClick={() => { navigate(`/product/${index.id}`) }}>
                         <img src={index.img} className='w-auto rounded-md hover:scale-95 duration-150' />
-                        <span className='px-2 '>{index.name}</span>
+                        <span className='px-2'>{index.name}</span>
                         <span className='px-2'>{index.price.toLocaleString()}</span>
                     </div>
                 )

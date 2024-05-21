@@ -2,10 +2,13 @@ import React, { useState } from "react"
 import WelcomeIMG from '~/resources/Welcome.jpg'
 import LOGOCustomize from '~/resources/LOGOCustomize.png'
 import { FormDataLogin } from "~/config/Types"
-import { FacebookFilled, GithubFilled, GoogleOutlined } from "@ant-design/icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faFacebook, faGithub, faGoogle } from "@fortawesome/free-brands-svg-icons"
+import { faFacebook, faGithub } from "@fortawesome/free-brands-svg-icons"
+import UserService from "~/service/UserService"
+import { message } from "antd"
+import { useNavigate } from "react-router-dom"
 export default function Login() {
+    const navigate = useNavigate()
     const [formData, SetFormData] = useState<FormDataLogin>({
         username: "",
         password: ""
@@ -18,9 +21,15 @@ export default function Login() {
             [name]: value
         })
     }
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        console.log(formData)
+        UserService.login(formData.username, formData.password).then((res) => {
+            localStorage.setItem('token', res.data.result.token)
+            localStorage.setItem('refreshToken', res.data.result.refreshToken)
+            navigate('/')
+        }).catch((err) => {
+            message.error("Sai tài khoản hoặc mật khẩu")
+        })
     }
     return (
         <div className="flex justify-center">
@@ -35,7 +44,7 @@ export default function Login() {
                             <input className="border rounded-lg focus:outline-none h-9 p-2" type="text" name="password" onChange={handleChange}></input>
                             <span className="px-1">Chưa có tài khoản ? <a className="text-blue-600" href="/signUp">Đăng Ký Ngay</a></span>
                             <button className="border mt-4 w-full h-12 rounded-md text-white bg-black hover:bg-blue-600
-                             transition-colors duration-500 ease-in-out" type="submit">
+                            duration-200" type="submit">
                                 Đăng nhập
                             </button>
                             <div className="rounded-xl bg-gray-400 w-full h-1 my-6"></div>
