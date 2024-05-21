@@ -14,7 +14,20 @@ export type FormDataSignUp = {
     dob: string
 }
 export type ProductProps = {
+    id: string,
     name: string,
     img: string,
     price: number
+}
+export type typeProduct = {
+    id: string,
+    name: string,
+    price: number,
+    img: string,
+    description: string,
+    active: boolean
+}
+export type typeCategory = {
+    id: string,
+    name: string
 }

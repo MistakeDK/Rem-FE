@@ -32,7 +32,7 @@ function Header() {
                         <span className="absolute bottom-2 left-1/2 w-0 h-0.5 bg-blue-600 group-hover:w-1/2 duration-200"></span>
                         <span className="absolute bottom-2 right-1/2 w-0 h-0.5 bg-blue-600 group-hover:w-1/2 duration-200"></span>
                     </p>
-                    <p className="relative group" onClick={() => { goNavigate("/") }}>
+                    <p className="relative group" onClick={() => { goNavigate("/Product") }}>
                         <span className='px-2'>Sản Phẩm</span>
                         <span className="absolute bottom-2 left-1/2 w-0 h-0.5 bg-blue-600 group-hover:w-1/2 duration-200"></span>
                         <span className="absolute bottom-2 right-1/2 w-0 h-0.5 bg-blue-600 group-hover:w-1/2 duration-200"></span>

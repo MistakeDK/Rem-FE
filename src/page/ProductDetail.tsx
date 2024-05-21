@@ -1,29 +1,40 @@
 import { faMinus, faPhone, faPlus, faTruck } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { message } from 'antd'
-import React, { useState } from 'react'
-
+import React, { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
+import { typeProduct } from '~/config/Types'
+import ProductService from '~/service/ProductService'
 function ProductDetail() {
     const [quantity, SetQuantity] = useState<number>(1)
+    const [product, SetProduct] = useState<typeProduct>()
+    const location = useLocation()
+    const id = location.pathname.split("/").pop() || ""
     const increase = () => {
         SetQuantity(quantity + 1)
     }
     const decrease = () => {
         (quantity - 1 <= 0) ? (message.error("Không thể giảm số lượng")) : (SetQuantity(quantity - 1))
     }
+    useEffect(() => {
+        const CallApi = async () => {
+            ProductService.getById(id).then((res) => {
+                SetProduct(res.data.result)
+            })
+        }
+        CallApi()
+    }, [])
     return (
         <div className='flex justify-center p-4'>
             <div className='w-8/12 grid grid-cols-2 gap-8'>
                 <div>
-                    <img src="https://lacdau.com/media/product/1763-a3779c9c2559b07bb05c92503de05c63.png" />
+                    <img src={product?.img} />
                 </div>
                 <div className='flex flex-col'>
-                    <span className='text-2xl font-semibold'>Goku</span>
-                    <span className='text-xl font-semibold text-red-600'>1.000.000</span>
+                    <span className='text-2xl font-semibold'>{product?.name}</span>
+                    <span className='text-xl font-semibold text-red-600'>{product?.price.toLocaleString()} VND</span>
                     <span>
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                        when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                        {product?.description}
                     </span>
                     <div className='flex mt-16 font-medium'>
                         <FontAwesomeIcon icon={faTruck} size='2x' opacity={"0.8"} color='green' />

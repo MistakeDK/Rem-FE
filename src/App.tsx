@@ -6,6 +6,7 @@ import Home from '~/page/Home'
 import SignUp from '~/page/SignUp'
 import VerifyAccount from '~/page/VerifyAccount'
 import ProductDetail from '~/page/ProductDetail'
+import ProductList from '~/page/ProductList'
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path='/login' element={<Login />}></Route>
         <Route path='/verify' element={<VerifyAccount />}></Route>
         <Route path='/signUp' element={<SignUp />}></Route>
+        <Route path='/product' element={<ProductList />}></Route>
         <Route path='/product/:id' element={<ProductDetail />}></Route>
       </Routes>
     </BrowserRouter>

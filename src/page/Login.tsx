@@ -3,6 +3,8 @@ import WelcomeIMG from '~/resources/Welcome.jpg'
 import LOGOCustomize from '~/resources/LOGOCustomize.png'
 import { FormDataLogin } from "~/config/Types"
 import { FacebookFilled, GithubFilled, GoogleOutlined } from "@ant-design/icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faFacebook, faGithub, faGoogle } from "@fortawesome/free-brands-svg-icons"
 export default function Login() {
     const [formData, SetFormData] = useState<FormDataLogin>({
         username: "",
@@ -37,15 +39,14 @@ export default function Login() {
                                 Đăng nhập
                             </button>
                             <div className="rounded-xl bg-gray-400 w-full h-1 my-6"></div>
-                            <div className="flex justify-center ">
-                                <div className="rounded-full p-3 border mx-2 hover:bg-orange-300 transition-colors duration-500 ease-in-out cursor-pointer">
-                                    <FacebookFilled style={{ color: "blue", fontSize: "250%" }} />
+                            <div className="flex justify-center flex-col ">
+                                <div className="flex items-center p-2 border rounded-2xl hover:bg-red-300 hover:text-white duration-200">
+                                    <FontAwesomeIcon icon={faFacebook} fontSize={"250%"} color="blue" />
+                                    <span className="px-4">Đăng nhập với FaceBook</span>
                                 </div>
-                                <div className="rounded-full p-3 border mx-2 hover:bg-orange-300 transition-colors duration-500 ease-in-out cursor-pointer">
-                                    <GithubFilled style={{ color: "blue", fontSize: "250%" }} />
-                                </div>
-                                <div className="rounded-full p-3 border mx-2 hover:bg-orange-300 transition-colors duration-500 ease-in-out cursor-pointer">
-                                    <GoogleOutlined style={{ color: "blue", fontSize: "250%" }} />
+                                <div className="flex items-center p-2 border rounded-2xl mt-2 hover:bg-red-300 hover:text-white duration-200">
+                                    <FontAwesomeIcon icon={faGithub} fontSize={"250%"} color="black" />
+                                    <span className="px-4">Đăng nhập với Github</span>
                                 </div>
                             </div>
                         </form>
