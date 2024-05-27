@@ -25,9 +25,16 @@ const verifyAccount = (code: string) => {
         method: "PATCH",
     })
 }
+const getMyInfo = () => {
+    return axios({
+        url: `/users/myInfo`,
+        method: "GET"
+    })
+}
 const UserService = {
     verifyAccount,
     login,
-    signUp
+    signUp,
+    getMyInfo
 }
 export default UserService

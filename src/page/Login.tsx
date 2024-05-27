@@ -7,7 +7,11 @@ import { faFacebook, faGithub } from "@fortawesome/free-brands-svg-icons"
 import UserService from "~/service/UserService"
 import { message } from "antd"
 import { useNavigate } from "react-router-dom"
+import { AppDispatch } from "~/redux/store"
+import { useDispatch } from "react-redux"
+import { login } from "~/reducer/authReducer"
 export default function Login() {
+    const dispatch: AppDispatch = useDispatch()
     const navigate = useNavigate()
     const [formData, SetFormData] = useState<FormDataLogin>({
         username: "",
@@ -24,6 +28,7 @@ export default function Login() {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         UserService.login(formData.username, formData.password).then((res) => {
+            dispatch(login({ username: formData.username, isAuthenticated: true }))
             localStorage.setItem('token', res.data.result.token)
             localStorage.setItem('refreshToken', res.data.result.refreshToken)
             navigate('/')

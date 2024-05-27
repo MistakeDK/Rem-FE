@@ -8,7 +8,7 @@ function Product({ product }: { product: ProductProps }) {
             <img src={img} className='w-80' />
             <span className='px-4 text-xl'>{name}</span>
             <br />
-            <span className='px-4 text-lg'>{price}</span>
+            <span className='px-4 text-lg'>{price.toLocaleString()}</span>
         </div>
     )
 }

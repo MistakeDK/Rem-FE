@@ -5,8 +5,11 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import LOGOCustomize from "~/resources/LOGOCustomize.png"
 import SearchBlock from './SearchBlock'
 import { useDebounce } from 'use-debounce'
+import { useSelector } from 'react-redux'
+import { RootState } from '~/redux/store'
 
 function Header() {
+    const user = useSelector((state: RootState) => state.auth.username)
     const [search, SetSearch] = useState<string>("")
     const [value] = useDebounce(search, 2000)
     const location = useLocation()
@@ -46,8 +49,16 @@ function Header() {
                     </p>
                 </div>
                 <div className='p-2 flex flex-col text-lg'>
-                    <span onClick={() => navigate("/login")} className='cursor-pointer'>Đăng nhập<UserOutlined /></span>
-                    <span>Giỏ hàng <ShoppingCartOutlined className='ml-3 cursor-pointer' /></span>
+                    {
+                        user !== null ? (
+                            <span onClick={() => navigate("/profile/InfoUser")} className='cursor-pointer'>{user}<UserOutlined /></span>
+
+                        ) : (
+
+                            <span onClick={() => navigate("/login")} className='cursor-pointer'>Đăng nhập<UserOutlined /></span>
+                        )
+                    }
+                    <span onClick={() => navigate("/cart")}>Giỏ hàng <ShoppingCartOutlined className='ml-3 cursor-pointer' /></span>
                 </div>
             </div>
         </div>
