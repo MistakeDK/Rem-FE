@@ -1,7 +1,14 @@
 import { SearchOutlined, ShoppingCartOutlined, UserOutlined } from '@ant-design/icons'
+import { Skeleton } from 'antd'
+import { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import LOGOCustomize from "~/resources/LOGOCustomize.png"
+import SearchBlock from './SearchBlock'
+import { useDebounce } from 'use-debounce'
+
 function Header() {
+    const [search, SetSearch] = useState<string>("")
+    const [value] = useDebounce(search, 2000)
     const location = useLocation()
     const navigate = useNavigate()
     const hideHeaderForPath = ['/verify']
@@ -11,15 +18,15 @@ function Header() {
     const goNavigate = (url: string) => {
         navigate(url)
     }
+
     return (
         <div>
             <div className='flex justify-around p-2'>
                 <div className='flex h-1/2 pt-2 relative w-1/2'>
                     <img onClick={() => { navigate("/") }} src={LOGOCustomize} className='w-36 mr-12' />
-                    <input className='p-2 border-red-300 border relative w-full focus:outline-none' placeholder='Search'></input>
-                    <div className='w-12 h-10 flex items-center justify-center absolute bg-red-600 right-0'>
-                        <SearchOutlined style={{ color: "white", fontSize: "130%" }} />
-                    </div>
+                    <input onChange={(e) => { SetSearch(e.target.value) }} className='p-2 border-red-300 border rounded-lg w-full focus:outline-none' placeholder='Search'></input>
+                    <SearchOutlined className='right-2 bottom-3 absolute' style={{ color: "red", fontSize: "130%" }} />
+                    {search?.length !== 0 ? (<SearchBlock search={value} />) : (null)}
                 </div>
                 <div className='flex pt-4 text-lg'>
                     <p className="relative group" onClick={() => { goNavigate("/") }}>
@@ -39,7 +46,7 @@ function Header() {
                     </p>
                 </div>
                 <div className='p-2 flex flex-col text-lg'>
-                    <span onClick={() => navigate("/login")} className='cursor-pointer'>Đăng nhập <UserOutlined /></span>
+                    <span onClick={() => navigate("/login")} className='cursor-pointer'>Đăng nhập<UserOutlined /></span>
                     <span>Giỏ hàng <ShoppingCartOutlined className='ml-3 cursor-pointer' /></span>
                 </div>
             </div>

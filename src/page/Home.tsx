@@ -7,14 +7,8 @@ function Home() {
         <div className='px-0.5'>
             <CarouselHome />
             <div></div>
-            <ProductLine productLine={{
-                id: "OP",
-                name: "ONE PIECE"
-            }} />
-            <ProductLine productLine={{
-                id: "NA",
-                name: "NARUTO"
-            }} />
+            <ProductLine category='One Piece' />
+            <ProductLine category='Naruto' />
         </div>
     )
 }

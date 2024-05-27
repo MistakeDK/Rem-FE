@@ -1,8 +1,8 @@
 
 import axios from "~/service/axios"
-const getList = () => {
+const getList = (params: URLSearchParams | string) => {
     return axios({
-        url: "/products",
+        url: `/products?${params}`,
         method: "GET"
     })
 }

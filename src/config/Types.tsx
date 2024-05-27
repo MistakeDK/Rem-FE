@@ -1,7 +1,4 @@
-export type productLineProps = {
-    name: string
-    id: string
-}
+
 export type FormDataLogin = {
     username: string,
     password: string

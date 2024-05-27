@@ -8,7 +8,6 @@ function VerifyAccount() {
     const navigate = useNavigate()
     const [searchParams] = useSearchParams()
     const code = searchParams.get(`code`) || ''
-    console.log(code)
     const [loading, SetLoading] = useState(true)
     useEffect(() => {
         const callApi = async () => {
