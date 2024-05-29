@@ -10,6 +10,7 @@ import ProductList from '~/page/ProductList'
 import PrivateRoute from '~/component/PrivateRoute'
 import Profile from '~/page/Profile'
 import InfoUser from '~/component/InfoUser'
+import AuthorizationOAuth2 from '~/page/AuthorizationOAuth2'
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path='/login' element={<Login />}></Route>
         <Route path='/signUp' element={<SignUp />}></Route>
         <Route path='/verify' element={<VerifyAccount />}></Route>
+        <Route path='/Authorization' element={<AuthorizationOAuth2 />}></Route>
         <Route path='/product' element={<ProductList />}></Route>
         <Route path='/product/:id' element={<ProductDetail />}></Route>
         <Route element={<PrivateRoute />}>

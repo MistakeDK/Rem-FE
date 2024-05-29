@@ -27,14 +27,21 @@ export default function Login() {
     }
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+        if (formData.username === "" || formData.password === "") {
+            message.error("Tài khoản hoặc mật khẩu không được để trống")
+            return;
+        }
         UserService.login(formData.username, formData.password).then((res) => {
             dispatch(login({ username: formData.username, isAuthenticated: true }))
             localStorage.setItem('token', res.data.result.token)
             localStorage.setItem('refreshToken', res.data.result.refreshToken)
             navigate('/')
-        }).catch((err) => {
+        }).catch(() => {
             message.error("Sai tài khoản hoặc mật khẩu")
         })
+    }
+    const handleLoginGithub = () => {
+        window.location.href = "http://localhost:8080/rem/oauth2/authorization/github"
     }
     return (
         <div className="flex justify-center">
@@ -58,7 +65,7 @@ export default function Login() {
                                     <FontAwesomeIcon icon={faFacebook} fontSize={"250%"} color="blue" />
                                     <span className="px-4">Đăng nhập với FaceBook</span>
                                 </div>
-                                <div className="flex items-center p-2 border rounded-2xl mt-2 hover:bg-red-300 hover:text-white duration-200">
+                                <div onClick={handleLoginGithub} className="flex items-center p-2 border rounded-2xl mt-2 hover:bg-red-300 hover:text-white duration-200">
                                     <FontAwesomeIcon icon={faGithub} fontSize={"250%"} color="black" />
                                     <span className="px-4">Đăng nhập với Github</span>
                                 </div>

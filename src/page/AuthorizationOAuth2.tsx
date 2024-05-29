@@ -1,30 +1,35 @@
 import { CheckCircleFilled, LoadingOutlined } from '@ant-design/icons'
 import { Skeleton, message } from 'antd'
 import React, { useEffect, useState } from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { login } from '~/reducer/authReducer'
+import { AppDispatch } from '~/redux/store'
 import UserService from '~/service/UserService'
 
-function VerifyAccount() {
+function AuthorizationOAuth2() {
+    const [isloading, SetIsLoading] = useState(true)
     const navigate = useNavigate()
-    const [searchParams] = useSearchParams()
-    const code = searchParams.get(`code`) || ""
-    const [loading, SetLoading] = useState(true)
+    const urlParams = new URLSearchParams(window.location.search)
+    const auth = urlParams.get("name") || ""
+    const dispatch: AppDispatch = useDispatch()
     useEffect(() => {
-        const callApi = async () => {
-            await UserService.verifyAccount(code).
-                then((res) => {
-                    SetLoading(!loading)
-                }).
-                catch(() => { message.error("Xác thực thất bại") })
-        }
-        callApi()
+        UserService.login(auth, "").then((res) => {
+            dispatch(login({ username: auth, isAuthenticated: true }))
+            localStorage.setItem('token', res.data.result.token)
+            localStorage.setItem('refreshToken', res.data.result.refreshToken)
+        }).catch(() => {
+            message.error("Lỗi Server")
+        }).finally(() => {
+            SetIsLoading(false)
+        })
     }, [])
     return (
         <div className='flex justify-center min-h-screen items-center '>
-            {loading ? (
+            {isloading ? (
                 <div className='rounded-2xl w-6/12 border h-80 flex flex-col p-8 items-center justify-around'>
                     <LoadingOutlined style={{ fontSize: "400%" }} />
-                    <Skeleton.Input active={loading}></Skeleton.Input>
+                    <Skeleton.Input active={isloading}></Skeleton.Input>
                 </div>
             ) : (
                 <div className='rounded-2xl w-6/12 border h-80 flex flex-col p-8 items-center justify-around'>
@@ -38,4 +43,4 @@ function VerifyAccount() {
     )
 }
 
-export default VerifyAccount
+export default AuthorizationOAuth2
