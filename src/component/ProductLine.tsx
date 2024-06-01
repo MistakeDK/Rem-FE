@@ -43,20 +43,19 @@ function ProductLine({ category }: { category: string }) {
         callApi()
     }, [])
     return (
-        <div>
+        <main>
             <div className='text-center py-2'>
                 <span className='text-3xl'>COLLECTION</span>
                 <br />
                 <span className='text-2xl'>{category}</span>
-                <div></div>
+
             </div>
             <div className='flex justify-center'>
                 <div className='grid grid-cols-5 w-10/12 gap-2'>
                     {!isLoading ? (renderList()) : (null)}
-
                 </div>
             </div>
-        </div>
+        </main>
     )
 }
 

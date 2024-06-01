@@ -1,20 +1,19 @@
 import { SearchOutlined, ShoppingCartOutlined, UserOutlined } from '@ant-design/icons'
 import { Skeleton } from 'antd'
 import { useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom'
 import LOGOCustomize from "~/resources/LOGOCustomize.png"
 import SearchBlock from './SearchBlock'
 import { useDebounce } from 'use-debounce'
 import { useSelector } from 'react-redux'
 import { RootState } from '~/redux/store'
-
 function Header() {
     const user = useSelector((state: RootState) => state.auth.username)
     const [search, SetSearch] = useState<string>("")
     const [value] = useDebounce(search, 2000)
     const location = useLocation()
     const navigate = useNavigate()
-    const hideHeaderForPath = ['/verify']
+    const hideHeaderForPath = ['/verify', '/Authorization']
     if (hideHeaderForPath.some(path => location.pathname.includes(path))) {
         return <></>
     }
@@ -51,7 +50,7 @@ function Header() {
                 <div className='p-2 flex flex-col text-lg'>
                     {
                         user !== null ? (
-                            <span onClick={() => navigate("/profile/InfoUser")} className='cursor-pointer'>{user}<UserOutlined /></span>
+                            <span onClick={() => navigate("/profile")} className='cursor-pointer'>{user}<UserOutlined /></span>
 
                         ) : (
 
@@ -65,5 +64,4 @@ function Header() {
     )
 
 }
-
 export default Header

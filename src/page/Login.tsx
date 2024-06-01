@@ -32,7 +32,7 @@ export default function Login() {
             return;
         }
         UserService.login(formData.username, formData.password).then((res) => {
-            dispatch(login({ username: formData.username, isAuthenticated: true }))
+            dispatch(login({ username: formData.username, isAuthenticated: true, id: res.data.result.id }))
             localStorage.setItem('token', res.data.result.token)
             localStorage.setItem('refreshToken', res.data.result.refreshToken)
             navigate('/')

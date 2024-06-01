@@ -1,14 +1,16 @@
 import { Skeleton, message } from 'antd'
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { typeProduct } from '~/config/Types'
 import ProductService from '~/service/ProductService'
 
 function SearchBlock({ search }: { search: string }) {
+    const navigate = useNavigate()
     const [isLoadingSearch, SetIsloadingSearch] = useState(true)
     const [product, SetProduct] = useState<typeProduct[]>([])
     useEffect(() => {
         const callApi = async () => {
-            ProductService.getList(`search=name:${search}`).then((res) => {
+            ProductService.getList(`search=name=${search}`).then((res) => {
                 SetProduct(res.data.result.items)
             }).catch(() => {
                 message.error("Lỗi Server")
@@ -24,11 +26,11 @@ function SearchBlock({ search }: { search: string }) {
                 {
                     product.map((index) => {
                         return (
-                            <div className='rounded-md flex p-2 border m-2 hover:bg-green-200 duration-200'>
+                            <div onClick={() => navigate(`/product/${index.id}`)} className='rounded-md flex p-2 border m-2 hover:bg-green-200 duration-200'>
                                 <img className='w-2/12' src={index.img} />
                                 <div className='flex flex-col px-2'>
                                     <span className='font-medium'>{index.name}</span>
-                                    <span>{index.price}</span>
+                                    <span>{index.price.toLocaleString()}</span>
                                 </div>
                             </div>
                         )

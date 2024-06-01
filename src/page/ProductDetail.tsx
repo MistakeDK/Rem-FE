@@ -1,15 +1,27 @@
 import { faMinus, faPhone, faPlus, faTruck } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { message } from 'antd'
+import { message, notification } from 'antd'
 import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import { typeProduct } from '~/config/Types'
+import { RootState } from '~/redux/store'
+import CartService from '~/service/CartService'
 import ProductService from '~/service/ProductService'
+type NotificationType = 'success' | 'info' | 'warning' | 'error';
 function ProductDetail() {
+    const idUser = useSelector((state: RootState) => state.auth.id) || ""
     const [quantity, SetQuantity] = useState<number>(1)
     const [product, SetProduct] = useState<typeProduct>()
     const location = useLocation()
     const id = location.pathname.split("/").pop() || ""
+    const [api, contextHolder] = notification.useNotification();
+    const openNotificationWithIcon = (type: NotificationType) => {
+        api[type]({
+            message: "Thêm vào giỏ hàng thành công",
+        });
+    };
+
     const increase = () => {
         SetQuantity(quantity + 1)
     }
@@ -24,8 +36,14 @@ function ProductDetail() {
         }
         CallApi()
     }, [])
+    const addToCart = () => {
+        CartService.changeQuantity(idUser, id, "INCREASE", quantity).then(() => {
+            openNotificationWithIcon("success")
+        })
+    }
     return (
         <div className='flex justify-center p-4'>
+            {contextHolder}
             <div className='w-8/12 grid grid-cols-2 gap-8'>
                 <div>
                     <img src={product?.img} />
@@ -53,7 +71,7 @@ function ProductDetail() {
                             <FontAwesomeIcon icon={faPlus} />
                         </button>
                     </div>
-                    <button className='flex mt-4 bg-green-600 w-fit p-3 rounded-lg text-white'>
+                    <button onClick={() => addToCart()} className='flex mt-4 bg-green-600 w-fit p-3 rounded-lg text-white'>
                         Thêm vào giỏ hàng ngay
                     </button>
                 </div>
