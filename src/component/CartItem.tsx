@@ -1,4 +1,4 @@
-import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faMinus, faPlus, faTrashCan } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { message } from 'antd'
 import React, { useState } from 'react'
@@ -47,6 +47,16 @@ function CartItem({ prop }: { prop: prop }) {
                 message.error("Lỗi Server");
             });
     };
+    const remove = () => {
+        CartService.changeQuantity(idUser, prop.id, action.DELETE.toString())
+            .then(() => {
+                dispatch(removeItem(prop.id))
+                SetQuantity(0)
+            })
+            .catch(() => {
+                message.error("Lỗi Server")
+            })
+    }
 
     if (quantity === 0) {
         return <></>
@@ -61,13 +71,18 @@ function CartItem({ prop }: { prop: prop }) {
                         <span className='text-right'>{prop.price.toLocaleString()}</span>
                     </div>
                     <span className='font-semibold text-gray-600'>Số lượng:{quantity}</span>
-                    <div className='items-center flex w-2/12 h-14 mt-4 border rounded-2xl border-gray-950 text-center'>
+                    <div className='items-center flex w-2/12 h-20 mt-4 border rounded-2xl border-gray-950 text-center'>
                         <button className='w-1/3' onClick={() => decrease()}>
                             <FontAwesomeIcon icon={faMinus} />
                         </button>
                         <span className='w-1/3'>{quantity}</span>
                         <button className='w-1/3' onClick={() => increase()}>
                             <FontAwesomeIcon icon={faPlus} />
+                        </button>
+                    </div>
+                    <div className='w-full flex justify-end h-full items-end'>
+                        <button onClick={() => { remove() }}>
+                            <FontAwesomeIcon icon={faTrashCan} />
                         </button>
                     </div>
                 </div>
