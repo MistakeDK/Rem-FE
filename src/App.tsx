@@ -7,7 +7,7 @@ import SignUp from '~/page/SignUp'
 import VerifyAccount from '~/page/VerifyAccount'
 import ProductDetail from '~/page/ProductDetail'
 import ProductList from '~/page/ProductList'
-import PrivateRoute from '~/component/PrivateRoute'
+import PrivateRoute from '~/util/PrivateRoute'
 import Profile from '~/page/Profile'
 import InfoUser from '~/component/InfoUser'
 import AuthorizationOAuth2 from '~/page/AuthorizationOAuth2'
@@ -25,12 +25,12 @@ function App() {
         <Route path='/Authorization' element={<AuthorizationOAuth2 />}></Route>
         <Route path='/product' element={<ProductList />}></Route>
         <Route path='/product/:id' element={<ProductDetail />}></Route>
-        <Route path='/cart' element={<Cart />}></Route>
         <Route element={<PrivateRoute />}>
           <Route path='/profile' element={<Profile />}>
             <Route path='InfoUser' element={<InfoUser />}></Route>
             <Route path='' element={<Navigate to={"/profile/InfoUser"} />}></Route>
           </Route>
+          <Route path='/cart' element={<Cart />}></Route>
         </Route>
       </Routes>
     </BrowserRouter>

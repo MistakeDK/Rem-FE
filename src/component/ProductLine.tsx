@@ -6,7 +6,6 @@ import { message } from 'antd';
 import Naruto_img from '~/resources/Naruto_img.jpg'
 import Onepiece_img from '~/resources/Onepiece_img.jpg'
 function ProductLine({ category }: { category: string }) {
-    const [isLoading, SetIsLoading] = useState(true)
     const [product, SetProduct] = useState<ProductProps[]>()
     let img;
     const imgAdd = () => {
@@ -36,8 +35,6 @@ function ProductLine({ category }: { category: string }) {
                 SetProduct(res.data.result.items)
             }).catch(() => {
                 message.error("Lỗi Server")
-            }).finally(() => {
-                SetIsLoading(false)
             })
         }
         callApi()
@@ -52,7 +49,7 @@ function ProductLine({ category }: { category: string }) {
             </div>
             <div className='flex justify-center'>
                 <div className='grid grid-cols-5 w-10/12 gap-2'>
-                    {!isLoading ? (renderList()) : (null)}
+                    {product && (renderList())}
                 </div>
             </div>
         </main>

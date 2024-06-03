@@ -16,9 +16,10 @@ function ProductDetail() {
     const location = useLocation()
     const id = location.pathname.split("/").pop() || ""
     const [api, contextHolder] = notification.useNotification();
-    const openNotificationWithIcon = (type: NotificationType) => {
+    const openNotificationWithIcon = (type: NotificationType, message: string, description: string) => {
         api[type]({
-            message: "Thêm vào giỏ hàng thành công",
+            message: message,
+            description: description
         });
     };
 
@@ -38,7 +39,9 @@ function ProductDetail() {
     }, [])
     const addToCart = () => {
         CartService.changeQuantity(idUser, id, "INCREASE", quantity).then(() => {
-            openNotificationWithIcon("success")
+            openNotificationWithIcon("success", "Thêm thành công", "")
+        }).catch(() => {
+            openNotificationWithIcon("error", "Thêm vào giỏ hàng thất bại", "Vui lòng đăng nhập")
         })
     }
     return (

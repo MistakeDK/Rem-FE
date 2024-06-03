@@ -49,15 +49,14 @@ function Header() {
                 </div>
                 <div className='p-2 flex flex-col text-lg'>
                     {
-                        user !== null ? (
-                            <span onClick={() => navigate("/profile")} className='cursor-pointer'>{user}<UserOutlined /></span>
+                        user ? (
+                            <span onClick={() => navigate("/profile")} className='cursor-pointer'><UserOutlined /> {user}</span>
 
                         ) : (
-
-                            <span onClick={() => navigate("/login")} className='cursor-pointer'>Đăng nhập<UserOutlined /></span>
+                            <span onClick={() => navigate("/login")} className='cursor-pointer'><UserOutlined /> Đăng nhập</span>
                         )
                     }
-                    <span onClick={() => navigate("/cart")}>Giỏ hàng <ShoppingCartOutlined className='ml-3 cursor-pointer' /></span>
+                    <span onClick={() => navigate("/cart")}><ShoppingCartOutlined className='cursor-pointer' /> Giỏ hàng </span>
                 </div>
             </div>
         </div>
