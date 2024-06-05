@@ -13,7 +13,6 @@ function InfoUser() {
     const [userInfo, SetUserInfo] = useState<userInfo>()
     useEffect(() => {
         UserService.getMyInfo().then((res) => {
-            console.log(res.data)
             SetUserInfo(res.data.result)
         }).catch(() => {
             message.error("Lỗi Server")

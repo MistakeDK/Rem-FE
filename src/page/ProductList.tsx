@@ -28,9 +28,20 @@ function ProductList() {
     const onChange = (checkedValues: CheckboxValueType[]) => {
         SetSearchCategory(checkedValues.slice(-1))
     };
+
     const renderListProducts = () => {
         return (
             products.map((index, key) => {
+                if (!index.isActive) {
+                    return (
+                        <div className='flex flex-col rounded-lg border text-xl cursor-pointer p-2 bg-green-300'
+                            key={key} onClick={() => { message.info("Sản phẩm tạm hết") }}>
+                            <img src={index.img} className='w-auto rounded-md hover:scale-95 duration-150' />
+                            <span className='px-2'>{index.name}</span>
+                            <span className='px-2'>{index.price.toLocaleString()}</span>
+                        </div>
+                    )
+                }
                 return (
                     <div className='flex flex-col rounded-lg border text-xl cursor-pointer p-2 bg-green-300' key={key} onClick={() => { navigate(`/product/${index.id}`) }}>
                         <img src={index.img} className='w-auto rounded-md hover:scale-95 duration-150' />
@@ -71,6 +82,7 @@ function ProductList() {
                 SetCategory(transform);
             } catch (err) {
                 message.error("Lỗi Server")
+                console.log(err)
             } finally {
                 SetLoading(false)
             }

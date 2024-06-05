@@ -1,15 +1,22 @@
+import { message } from 'antd'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Outlet, useNavigate } from 'react-router-dom'
 import { logout } from '~/reducer/authReducer'
 import { AppDispatch, RootState } from '~/redux/store'
+import UserService from '~/service/UserService'
 
 function Profile() {
     const navigate = useNavigate()
     const dispatch: AppDispatch = useDispatch()
     const onClick = () => {
-        dispatch(logout())
-        navigate("/")
+        UserService.logOut().then(() => {
+            message.success("Đăng xuất thành công")
+            localStorage.clear()
+        }).finally(() => {
+            dispatch(logout())
+            navigate("/")
+        })
     }
     const username = useSelector((state: RootState) => state.auth.username)
     return (

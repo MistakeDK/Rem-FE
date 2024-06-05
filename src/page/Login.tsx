@@ -34,7 +34,6 @@ export default function Login() {
         UserService.login(formData.username, formData.password).then((res) => {
             dispatch(login({ username: formData.username, isAuthenticated: true, id: res.data.result.id }))
             localStorage.setItem('token', res.data.result.token)
-            localStorage.setItem('refreshToken', res.data.result.refreshToken)
             navigate('/')
         }).catch(() => {
             message.error("Sai tài khoản hoặc mật khẩu")

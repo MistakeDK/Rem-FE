@@ -39,10 +39,16 @@ const cartSlice = createSlice({
             if (item) {
                 item.quantity = quantity;
             }
+            state.promotionCode = null
+            state.promotionType = PromotionType.DIRECT
+            state.promotionValue = 0
         },
         removeItem: (state, action: PayloadAction<string>) => {
             const id = action.payload;
             state.items = state.items.filter((item) => item.id !== id);
+            state.promotionCode = null
+            state.promotionType = PromotionType.DIRECT
+            state.promotionValue = 0
         },
         setItems: (state, action: PayloadAction<CartItem[]>) => {
             state.items = action.payload;

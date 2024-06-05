@@ -22,7 +22,7 @@ export type typeProduct = {
     price: number,
     img: string,
     description: string,
-    active: boolean
+    isActive: boolean
 }
 export type typeCategory = {
     id: string,

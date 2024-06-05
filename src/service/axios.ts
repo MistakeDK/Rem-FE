@@ -1,13 +1,14 @@
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
+import UserService from "./UserService";
+
 
 const instance = axios.create({
     baseURL: "http://localhost:8080/rem",
-    timeout: 10000,
     withCredentials: true
 })
 instance.interceptors.request.use(
     (config) => {
-        const token = localStorage.getItem('refreshToken')
+        const token = localStorage.getItem('token')
         if (token) {
             config.headers.Authorization = `Bearer ${token}`
         }
@@ -18,8 +19,17 @@ instance.interceptors.request.use(
     }
 )
 instance.interceptors.response.use(
-    (res: AxiosResponse) => {
-        return res
+    async (res) => {
+        const authorizationHeader = res.headers['authorization'];
+        if (authorizationHeader) {
+            const newToken = authorizationHeader.replace('Bearer ', '');
+            localStorage.setItem('token', newToken);
+        }
+        return res;
+    },
+    (err) => {
+        console.log(err)
+        return Promise.reject(err)
     }
 )
 

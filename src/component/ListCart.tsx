@@ -31,7 +31,8 @@ function ListCart() {
         CartService.getList(idUser).then(async (res) => {
             SetCartItem(res.data.result)
             dispatch(setItems(res.data.result))
-        }).catch(() => {
+        }).catch((err) => {
+            console.log(err)
             message.error("Lỗi Server")
         }).finally(() => {
             SetIsLoading(false)

@@ -19,6 +19,24 @@ const signUp = (data: FormDataSignUp) => {
         }
     })
 }
+const logOut = () => {
+    return axios({
+        url: "/auth/logout",
+        method: "POST",
+        data: {
+            token: localStorage.getItem("token")
+        }
+    })
+}
+const refreshToken = (token: string) => {
+    return axios({
+        url: '/auth/refresh',
+        method: "POST",
+        data: {
+            token: token
+        }
+    })
+}
 const verifyAccount = (code: string) => {
     return axios({
         url: `/users/${code}`,
@@ -35,6 +53,8 @@ const UserService = {
     verifyAccount,
     login,
     signUp,
-    getMyInfo
+    refreshToken,
+    getMyInfo,
+    logOut
 }
 export default UserService

@@ -25,7 +25,11 @@ function CartSumary() {
                     break;
                 }
                 case (PromotionType.DIRECT): {
-                    dispatch(setPromotion({ promotionCode: code, promotionType: PromotionType.DIRECT, promotionValue: res.data.result.value }))
+                    if (preTotal <= res.data.result.value) {
+                        message.error(`Đơn hàng cần lớn hơn ${res.data.result.value.toLocaleString()}`)
+                    } else {
+                        dispatch(setPromotion({ promotionCode: code, promotionType: PromotionType.DIRECT, promotionValue: res.data.result.value }))
+                    }
                 }
             }
         }).catch(() => {
