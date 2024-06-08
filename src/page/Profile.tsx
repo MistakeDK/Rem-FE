@@ -12,8 +12,8 @@ function Profile() {
     const onClick = () => {
         UserService.logOut().then(() => {
             message.success("Đăng xuất thành công")
-            localStorage.clear()
         }).finally(() => {
+            localStorage.clear()
             dispatch(logout())
             navigate("/")
         })

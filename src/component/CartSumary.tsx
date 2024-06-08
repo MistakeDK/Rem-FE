@@ -1,17 +1,19 @@
 import { faX } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { message } from 'antd'
+import { Modal, message } from 'antd'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectTotal, setPromotion, removePromotion } from '~/reducer/cartReducer'
 import { AppDispatch, RootState } from '~/redux/store'
 import PromotionService from '~/service/PromotionService'
+import CheckOutBox from './CheckOutBox'
 
 enum PromotionType {
     PERCENT = "PERCENT",
     DIRECT = "DIRECT"
 }
 function CartSumary() {
+    const [isModalOpen, SetIsModalOpen] = useState(false)
     const [code, SetCode] = useState("")
     const dispatch: AppDispatch = useDispatch()
     const PromotionCode = useSelector((state: RootState) => state.cart.promotionCode)
@@ -39,6 +41,16 @@ function CartSumary() {
     const remove = () => {
         dispatch(removePromotion())
     }
+    const CloseModal = () => {
+        SetIsModalOpen(false)
+    }
+    const ModalCheckBox = () => {
+        return (
+            <Modal title={"Thanh Toán đơn hàng của bạn"} open={isModalOpen} width={"40%"} footer={null} onCancel={CloseModal}>
+                <CheckOutBox />
+            </Modal>
+        )
+    }
     return (
         <div className=' space-y-4 flex flex-col'>
             <div className='border-gray-300 rounded-lg border p-4'>
@@ -50,7 +62,7 @@ function CartSumary() {
             </div>
             <div className='border-gray-300 rounded-lg border p-4 relative'>
                 <p className='text-2xl font-bold'>Mã giảm giá</p>
-                <input defaultValue={PromotionCode || code} onChange={(e) => SetCode(e.target.value)} className='outline-none border-b-2 w-full mt-2' placeholder='Thêm mã giảm giá ...'></input>
+                <input defaultValue={PromotionCode || ""} onChange={(e) => SetCode(e.target.value)} className='outline-none border-b-2 w-full mt-2' placeholder='Thêm mã giảm giá ...'></input>
                 {
                     !PromotionCode ?
                         <button onClick={() => addPromotion()} className='absolute w-32 right-2 bottom-5 text-blue-500'>Thêm vào ngay</button>
@@ -59,10 +71,11 @@ function CartSumary() {
                 }
             </div>
             <div className='border-gray-300 rounded-lg border p-4 relative'>
-                <button className='text-center w-full border rounded-lg p-2 bg-blue-600 text-white'>Thanh toán</button>
+                <button onClick={() => { SetIsModalOpen(true) }} className='text-center w-full border rounded-lg p-2 bg-blue-600 text-white'>Thanh toán</button>
                 <p className='mt-2'>The estimated tax will be confirmed once you added your shipping address in checkout.
                     Final prices and shipping costs are confirmed at checkout
                 </p>
+                {ModalCheckBox()}
             </div>
         </div>
     )

@@ -3,9 +3,7 @@ import { RootState } from '~/redux/store';
 
 interface CartItem {
     id: string;
-    name: string;
     price: number;
-    img: string;
     quantity: number;
     active: boolean;
 }

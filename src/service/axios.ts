@@ -1,5 +1,6 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import UserService from "./UserService";
+import { message } from "antd";
 
 
 const instance = axios.create({
@@ -27,8 +28,13 @@ instance.interceptors.response.use(
         }
         return res;
     },
-    (err) => {
-        console.log(err)
+    (err: AxiosError) => {
+        // if(err.status)
+        if (err.response?.status === 401) {
+            localStorage.clear()
+            alert("Phiên đã hết hạn")
+            window.location.href = "/"
+        }
         return Promise.reject(err)
     }
 )

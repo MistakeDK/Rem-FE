@@ -15,9 +15,8 @@ function AuthorizationOAuth2() {
     const dispatch: AppDispatch = useDispatch()
     useEffect(() => {
         UserService.login(auth, "").then((res) => {
-            dispatch(login({ username: auth, isAuthenticated: true }))
+            dispatch(login({ username: auth, isAuthenticated: true, id: res.data }))
             localStorage.setItem('token', res.data.result.token)
-            localStorage.setItem('refreshToken', res.data.result.refreshToken)
         }).catch(() => {
             message.error("Lỗi Server")
         }).finally(() => {
