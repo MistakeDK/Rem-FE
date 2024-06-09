@@ -7,16 +7,16 @@ interface formCheckOut {
     name: string,
     phone: string,
     address: string,
-    userId: string,
     paymentType: paymentMethod
 }
-const CreateOrder = (formCheckOut: formCheckOut, promotionCode: string | null) => {
+const CreateOrder = (formCheckOut: formCheckOut, promotionCode: string | null, userId: string) => {
     return axios({
         url: "/orders",
         method: "POST",
         data: {
             ...formCheckOut,
-            promotionCode: promotionCode
+            promotionCode: promotionCode,
+            userId: userId
         }
     })
 }

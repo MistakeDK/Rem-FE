@@ -46,7 +46,7 @@ function CartSumary() {
     }
     const ModalCheckBox = () => {
         return (
-            <Modal title={"Thanh Toán đơn hàng của bạn"} open={isModalOpen} width={"40%"} footer={null} onCancel={CloseModal}>
+            <Modal title={"Thanh Toán đơn hàng của bạn"} open={isModalOpen} width={"30%"} footer={null} onCancel={CloseModal}>
                 <CheckOutBox />
             </Modal>
         )
@@ -71,7 +71,9 @@ function CartSumary() {
                 }
             </div>
             <div className='border-gray-300 rounded-lg border p-4 relative'>
-                <button onClick={() => { SetIsModalOpen(true) }} className='text-center w-full border rounded-lg p-2 bg-blue-600 text-white'>Thanh toán</button>
+                <button onClick={() => { total !== 0 ? SetIsModalOpen(true) : message.info("Vui lòng thêm sản phẩm vào giỏ hàng") }}
+                    className='text-center w-full border rounded-lg p-2 bg-blue-600 text-white'>Thanh toán
+                </button>
                 <p className='mt-2'>The estimated tax will be confirmed once you added your shipping address in checkout.
                     Final prices and shipping costs are confirmed at checkout
                 </p>

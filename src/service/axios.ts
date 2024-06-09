@@ -1,11 +1,10 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
-import UserService from "./UserService";
-import { message } from "antd";
 
 
 const instance = axios.create({
     baseURL: "http://localhost:8080/rem",
-    withCredentials: true
+    withCredentials: true,
+    timeout: 10000
 })
 instance.interceptors.request.use(
     (config) => {
@@ -29,7 +28,6 @@ instance.interceptors.response.use(
         return res;
     },
     (err: AxiosError) => {
-        // if(err.status)
         if (err.response?.status === 401) {
             localStorage.clear()
             alert("Phiên đã hết hạn")

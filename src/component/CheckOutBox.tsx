@@ -1,11 +1,12 @@
-import { message } from 'antd'
+import { message, notification } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { removePromotion, selectTotal } from '~/reducer/cartReducer'
 import { AppDispatch, RootState } from '~/redux/store'
 import OrderService from '~/service/OrderService'
-
+import { RegisterOptions, SubmitHandler, useForm } from 'react-hook-form'
+type NotificationType = 'success' | 'info' | 'warning' | 'error';
 enum paymentMethod {
     VNPAY = "VNPAY",
     CASH = "CASH"
@@ -14,68 +15,83 @@ interface formCheckOut {
     name: string,
     phone: string,
     address: string,
-    userId: string,
     paymentType: paymentMethod
 }
 function CheckOutBox() {
+    const [api, contextHolder] = notification.useNotification();
+    const openNotificationWithIcon = (type: NotificationType, message: string, description: string) => {
+        api[type]({
+            message: message,
+            description: description
+        });
+    };
     const navigate = useNavigate()
     const userId = useSelector((state: RootState) => state.auth.id) || ""
     const total = useSelector((state: RootState) => selectTotal(state, false))
     const promotionCode = useSelector((state: RootState) => state.cart.promotionCode)
     const dispatch: AppDispatch = useDispatch()
-    const [formData, SetFormData] = useState<formCheckOut>({
-        name: "",
-        address: "",
-        phone: "",
-        userId: userId,
-        paymentType: paymentMethod.CASH
-    })
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        e.preventDefault()
-        const { name, value } = e.target
-        SetFormData({
-            ...formData,
-            [name]: value
-        })
-    }
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        OrderService.CreateOrder(formData, promotionCode).then((res) => {
+    const { register,
+        handleSubmit,
+        formState: { errors }
+    } = useForm<formCheckOut>()
+    const onSubmit: SubmitHandler<formCheckOut> = (data) => {
+        console.log(data, promotionCode, userId)
+        OrderService.CreateOrder({ ...data }, promotionCode, userId).then((res) => {
+            openNotificationWithIcon('success', "Đặt hàng thành công", "")
             dispatch(removePromotion())
             setTimeout(() => {
                 navigate("/")
             }, 1500)
-            message.success("Đặt hàng thành công")
         }).catch(() => {
-            message.error("Đặt hàng thất bại")
+            message.error("Lỗi Server")
         })
-
+    }
+    const validateName: RegisterOptions<formCheckOut, "name"> = {
+        required: "Vui lòng nhập tên người nhận"
+    }
+    const validateAddress: RegisterOptions<formCheckOut, "address"> = {
+        required: "Vui lòng nhập địa chỉ"
+    }
+    const validatePhone: RegisterOptions<formCheckOut, "phone"> = {
+        required: "Vui lòng nhập Số điện thoại",
+        minLength: {
+            value: 10,
+            message: "Số điện thoại phải có 10 chữ số"
+        },
+        maxLength: {
+            value: 10,
+            message: "Số điện thoại phải có 10 chữ số"
+        }
     }
     return (
         <div className=''>
-            <form onSubmit={handleSubmit} className='flex flex-col space-y-4 relative'>
+            {contextHolder}
+            <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col space-y-4 relative'>
                 <div>
                     <label className='' htmlFor='name'>Tên người nhận: </label>
-                    <input onChange={handleChange} id='name' type='tmake ext' name='name' className='outline-none border-b-2 w-[300px]'></input>
+                    <input {...register("name", validateName)} id='name' type='text' name='name' className='outline-none border-b-2 w-[300px]'></input>
                 </div>
+                {errors.name && <div className='text-red-500'>{errors.name.message}</div>}
                 <div>
                     <label className='' htmlFor='address'>Địa Chỉ: </label>
-                    <input onChange={handleChange} id='address' type='text' name='address' className='outline-none border-b-2 w-[350px]'></input>
+                    <input {...register("address", validateAddress)} id='address' type='text' name='address' className='outline-none border-b-2 w-[350px]'></input>
                 </div>
+                {errors.address && <div className='text-red-500'>{errors.address.message}</div>}
                 <div>
                     <label className='' htmlFor='phone'>Số điện thoại: </label>
-                    <input onChange={handleChange} id='phone' type='text' name='phone' className='outline-none border-b-2 w-[310px]'></input>
+                    <input {...register("phone", validatePhone)} id='phone' type='text' name='phone' className='outline-none border-b-2 w-[310px]'></input>
+                </div>
+                {errors.phone && <div className='text-red-500'>{errors.phone.message}</div>}
+                <span>Giá trị đơn hàng cần thanh toán: {total.toLocaleString()}</span>
+                <div>
+                    <input {...register('paymentType')} defaultChecked name='paymentType' id='CASH' type='radio' value={paymentMethod.CASH}></input>
+                    <label htmlFor='CASH'> Thanh toán bằng tiền mặt</label>
                 </div>
                 <div>
-                    <input onChange={handleChange} name='method' id='Cash' type='radio' value={paymentMethod.CASH}></input>
-                    <label htmlFor='Cash'> Thanh toán bằng tiền mặt</label>
-                </div>
-                <div>
-                    <input onChange={handleChange} name='method' id='VNPAY' type='radio' value={paymentMethod.VNPAY}></input>
+                    <input {...register('paymentType')} name='paymentType' id='VNPAY' type='radio' value={paymentMethod.VNPAY}></input>
                     <label htmlFor='VNPAY'> Thanh toán qua VNPay</label>
                 </div>
-                <span>Giá trị đơn hàng cần thanh toán: {total.toLocaleString()}</span>
-                <button type='submit'>Đặt hàng ngay</button>
+                <button className='border w-5/12 m-auto p-2 rounded-lg hover:bg-blue-600 hover:text-white duration-200' type='submit'>Đặt hàng ngay</button>
             </form>
         </div>
     )
