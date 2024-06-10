@@ -33,7 +33,6 @@ function VerifyAccount() {
                     <button onClick={() => { navigate("/") }} className='bg-green-600 h-12 rounded-2xl px-4 hover:text-white transition-colors duration-200 ease-in-out'>Trở lại trang chủ</button>
                 </div>
             )}
-
         </div>
     )
 }

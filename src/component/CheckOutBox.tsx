@@ -6,6 +6,7 @@ import { removePromotion, selectTotal } from '~/reducer/cartReducer'
 import { AppDispatch, RootState } from '~/redux/store'
 import OrderService from '~/service/OrderService'
 import { RegisterOptions, SubmitHandler, useForm } from 'react-hook-form'
+import PaymentService from '~/service/PaymentService'
 type NotificationType = 'success' | 'info' | 'warning' | 'error';
 enum paymentMethod {
     VNPAY = "VNPAY",
@@ -35,16 +36,24 @@ function CheckOutBox() {
         formState: { errors }
     } = useForm<formCheckOut>()
     const onSubmit: SubmitHandler<formCheckOut> = (data) => {
-        console.log(data, promotionCode, userId)
-        OrderService.CreateOrder({ ...data }, promotionCode, userId).then((res) => {
-            openNotificationWithIcon('success', "Đặt hàng thành công", "")
-            dispatch(removePromotion())
-            setTimeout(() => {
-                navigate("/")
-            }, 1500)
-        }).catch(() => {
-            message.error("Lỗi Server")
-        })
+        if (data.paymentType === paymentMethod.CASH) {
+            OrderService.CreateOrder({ ...data }, promotionCode, userId).then((res) => {
+                openNotificationWithIcon('success', "Đặt hàng thành công", "")
+                dispatch(removePromotion())
+                setTimeout(() => {
+                    navigate("/")
+                }, 1500)
+            }).catch(() => {
+                message.error("Lỗi Server")
+            })
+        } else {
+            const urlParam = new URLSearchParams()
+            urlParam.set("amount", total.toString())
+            urlParam.set("bankCode", "NCB")
+            PaymentService.paymentVNPay(urlParam, { ...data }, promotionCode, userId).then((res) => {
+                window.open(res.data.result)
+            })
+        }
     }
     const validateName: RegisterOptions<formCheckOut, "name"> = {
         required: "Vui lòng nhập tên người nhận"

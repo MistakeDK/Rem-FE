@@ -12,6 +12,7 @@ import Profile from '~/page/Profile'
 import InfoUser from '~/component/InfoUser'
 import AuthorizationOAuth2 from '~/page/AuthorizationOAuth2'
 import Cart from '~/page/Cart'
+import StatusPayment from '~/page/StatusPayment'
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           </Route>
           <Route path='/cart' element={<Cart />}></Route>
         </Route>
+        <Route path='/payment' element={<StatusPayment />}></Route>
       </Routes>
     </BrowserRouter>
   )

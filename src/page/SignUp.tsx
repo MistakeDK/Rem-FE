@@ -62,11 +62,12 @@ function SignUp() {
             return 'Tuổi phải lớn hơn hoặc bằng 18';
         }
     }
-    const { register, handleSubmit, formState: { errors, isSubmitSuccessful } } = useForm<formSignUp>()
+    const { register, handleSubmit, formState: { errors, isSubmitSuccessful }, reset } = useForm<formSignUp>()
     const onSubmit = async (form: formSignUp) => {
         UserService.signUp(form).then((res) => {
             SetSignUpSuccess(true)
         }).catch(() => {
+            reset()
             message.error("Trùng Email hoặc tên đăng nhập")
         })
     }
