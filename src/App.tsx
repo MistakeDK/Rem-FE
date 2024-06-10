@@ -13,6 +13,7 @@ import InfoUser from '~/component/InfoUser'
 import AuthorizationOAuth2 from '~/page/AuthorizationOAuth2'
 import Cart from '~/page/Cart'
 import StatusPayment from '~/page/StatusPayment'
+import HistoryOrder from '~/page/HistoryOrder'
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Route element={<PrivateRoute />}>
           <Route path='/profile' element={<Profile />}>
             <Route path='InfoUser' element={<InfoUser />}></Route>
+            <Route path='HistoryOrder' element={<HistoryOrder />}></Route>
             <Route path='' element={<Navigate to={"/profile/InfoUser"} />}></Route>
           </Route>
           <Route path='/cart' element={<Cart />}></Route>

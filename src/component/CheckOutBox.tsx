@@ -50,6 +50,7 @@ function CheckOutBox() {
             const urlParam = new URLSearchParams()
             urlParam.set("amount", total.toString())
             urlParam.set("bankCode", "NCB")
+            dispatch(removePromotion())
             PaymentService.paymentVNPay(urlParam, { ...data }, promotionCode, userId).then((res) => {
                 window.open(res.data.result)
             })

@@ -26,8 +26,8 @@ function Profile() {
                     <div className='flex flex-col border  bg-gray-100 w-4/12 rounded-lg h-80'>
                         <span className='font-semibold text-center'>Xin chào,{username}</span>
                         <span onClick={() => { navigate('/profile/InfoUser') }} className='font-bold cursor-pointer p-2 mx-auto my-2'>Thông tin cá nhân</span>
+                        <span onClick={() => { navigate('/profile/HistoryOrder') }} className='font-bold cursor-pointer p-2 mx-auto my-2'>Lịch sử đơn hàng</span>
                         <span className='font-bold cursor-pointer p-2 mx-auto my-2'>Đổi Mật khẩu</span>
-                        <span className='font-bold cursor-pointer p-2 mx-auto my-2'>Lịch sử đơn hàng</span>
                         <button onClick={() => onClick()} className='border  mx-auto p-2 rounded-md border-white'>Đăng Xuất</button>
                     </div>
                     <div className='flex flex-col rounded-lg border mx-2 w-11/12 border-gray-950 p-2'>

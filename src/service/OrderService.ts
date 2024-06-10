@@ -20,7 +20,14 @@ const CreateOrder = (formCheckOut: formCheckOut, promotionCode: string | null, u
         }
     })
 }
+const getOrderById = (idUser: string) => {
+    return axios({
+        url: `/orders/${idUser}`,
+        method: "GET"
+    })
+}
 const OrderService = {
-    CreateOrder
+    CreateOrder,
+    getOrderById
 }
 export default OrderService
