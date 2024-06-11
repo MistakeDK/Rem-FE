@@ -1,9 +1,10 @@
-import { Tag } from 'antd'
+import { Button, Result, Tag } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import HistoryOrderItem from '~/component/HistoryOrderItem'
 import { RootState } from '~/redux/store'
 import OrderService from '~/service/OrderService'
+import PaymentService from '~/service/PaymentService'
 
 enum PromotionType {
     PERCENT = "PERCENT",
@@ -19,6 +20,7 @@ enum Status {
     DELIVERED = "Giao thành công"
 }
 interface Order {
+    id: string
     name: string
     phone: string
     address: string
@@ -57,17 +59,34 @@ function HistoryOrder() {
         Order.valueVoucher = Order.valueVoucher || 0
         let sum = Order.orderDetails.reduce((acc, value) => acc + value.price * value.quantity, 0)
         if (Order.promotionType == PromotionType.DIRECT) {
-            sum -= Order.valueVoucher || 0
+            sum -= Order.valueVoucher
         } else if (Order.promotionType == PromotionType.PERCENT) {
-            sum -= sum * (1 - Order.valueVoucher / 100)
+            sum -= sum * Order.valueVoucher / 100
         }
         return sum
+    }
+    const payment = (total: number, id: string) => {
+        const urlParam = new URLSearchParams()
+        urlParam.set("amount", total.toString())
+        urlParam.set("bankCode", "NCB")
+        PaymentService.paymentVNPay(urlParam, id).then((res) => {
+            window.open(res.data.result)
+        })
+    }
+    const orderNullScreen = () => {
+        return (
+            <Result
+                status="info"
+                title="Không có đơn hàng nào"
+
+            />
+        )
     }
     const renderListOrder = () => {
         return order.map((index) => {
             const total = calculateTotal(index)
             return (
-                <div className='flex flex-col border border-blue-300 rounded-md p-1'>
+                <div className='flex flex-col  rounded-md'>
                     <div className='bg-gray-400 grid grid-cols-5 text-center rounded-t-md'>
                         <div>
                             <span className='opacity-70'>Thời gian đặt hàng</span>
@@ -101,6 +120,9 @@ function HistoryOrder() {
                         <Tag color='blue'>{index.status.valueOf()}</Tag>
                         <Tag color='blue'>{index.isPaid ? "Đã Thanh toán" : "Chưa Thanh toán"}</Tag>
                         <Tag color='blue'>{index.paymentType == PaymentType.VNPAY ? "VNPAY" : "Tiền mặt"}</Tag>
+                        {index.paymentType == PaymentType.VNPAY && !index.isPaid &&
+                            <button onClick={() => payment(total, index.id)} className='p-1 bg-orange-400 rounded-md' color='green'>Thanh Toán ngay</button>
+                        }
                     </div>
                     <div>
                         <HistoryOrderItem order={index.orderDetails} />
@@ -110,8 +132,8 @@ function HistoryOrder() {
         })
     }
     return (
-        <div className='p-1 flex flex-col space-y-3'>
-            {renderListOrder()}
+        <div className=' flex flex-col space-y-3'>
+            {order.length !== 0 ? renderListOrder() : orderNullScreen()}
         </div>
     )
 }

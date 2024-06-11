@@ -12,7 +12,7 @@ function HistoryOrderItem({ order }: { order: OrderDetail[] }) {
     const renderList = () => {
         return order.map((index) => {
             return (
-                <div className='flex p-2'>
+                <div className='flex p-2 m-auto'>
                     <img className='w-40' src={index.img} />
                     <div className='flex flex-col mx-4 font-semibold'>
                         <span>{index.productName}</span>
@@ -27,7 +27,7 @@ function HistoryOrderItem({ order }: { order: OrderDetail[] }) {
         })
     }
     return (
-        <div className='flex flex-col space-y-1'>
+        <div className='grid lg:grid-cols-3 md:grid-cols-2'>
             {renderList()}
         </div>
     )

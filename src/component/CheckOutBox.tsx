@@ -35,26 +35,23 @@ function CheckOutBox() {
         handleSubmit,
         formState: { errors }
     } = useForm<formCheckOut>()
-    const onSubmit: SubmitHandler<formCheckOut> = (data) => {
+    const onSubmit: SubmitHandler<formCheckOut> = async (data) => {
+        const result = await OrderService.CreateOrder({ ...data }, promotionCode, userId)
         if (data.paymentType === paymentMethod.CASH) {
-            OrderService.CreateOrder({ ...data }, promotionCode, userId).then((res) => {
-                openNotificationWithIcon('success', "Đặt hàng thành công", "")
-                dispatch(removePromotion())
-                setTimeout(() => {
-                    navigate("/")
-                }, 1500)
-            }).catch(() => {
-                message.error("Lỗi Server")
-            })
-        } else {
-            const urlParam = new URLSearchParams()
-            urlParam.set("amount", total.toString())
-            urlParam.set("bankCode", "NCB")
             dispatch(removePromotion())
-            PaymentService.paymentVNPay(urlParam, { ...data }, promotionCode, userId).then((res) => {
-                window.open(res.data.result)
-            })
+            openNotificationWithIcon('success', "Đặt hàng thành công", "")
+            setTimeout(() => {
+                navigate("/")
+            }, 1500)
+            return;
         }
+        const urlParam = new URLSearchParams()
+        urlParam.set("amount", total.toString())
+        urlParam.set("bankCode", "NCB")
+        dispatch(removePromotion())
+        PaymentService.paymentVNPay(urlParam, result.data.result).then((res) => {
+            window.open(res.data.result)
+        })
     }
     const validateName: RegisterOptions<formCheckOut, "name"> = {
         required: "Vui lòng nhập tên người nhận"

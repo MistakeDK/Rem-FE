@@ -1,4 +1,5 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
+import { useNavigate } from "react-router-dom";
 
 
 const instance = axios.create({
@@ -29,8 +30,7 @@ instance.interceptors.response.use(
     (err: AxiosError) => {
         if (err.response?.status === 401) {
             localStorage.clear()
-            alert("Phiên đã hết hạn")
-            window.location.href = "/"
+            window.location.href = '/error401'
         }
         return Promise.reject(err)
     }

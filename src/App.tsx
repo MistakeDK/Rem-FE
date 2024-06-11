@@ -14,6 +14,10 @@ import AuthorizationOAuth2 from '~/page/AuthorizationOAuth2'
 import Cart from '~/page/Cart'
 import StatusPayment from '~/page/StatusPayment'
 import HistoryOrder from '~/page/HistoryOrder'
+import ErrorCode500 from '~/page/ErrorCode500'
+import ErrorCode401 from '~/page/ErrorCode401'
+import Introduce from '~/page/Introduce'
+import ErrorCode404 from '~/page/ErrorCode404'
 
 function App() {
   return (
@@ -21,6 +25,7 @@ function App() {
       <Header></Header>
       <Routes>
         <Route path='/' element={<Home />}></Route>
+        <Route path='/introduce' element={<Introduce />}></Route>
         <Route path='/login' element={<Login />}></Route>
         <Route path='/signUp' element={<SignUp />}></Route>
         <Route path='/verify' element={<VerifyAccount />}></Route>
@@ -36,6 +41,9 @@ function App() {
           <Route path='/cart' element={<Cart />}></Route>
         </Route>
         <Route path='/payment' element={<StatusPayment />}></Route>
+        <Route path='/error500' element={<ErrorCode500 />}></Route>
+        <Route path='/error401' element={<ErrorCode401 />}></Route>
+        <Route path='*' element={<ErrorCode404 />}></Route>
       </Routes>
     </BrowserRouter>
   )
