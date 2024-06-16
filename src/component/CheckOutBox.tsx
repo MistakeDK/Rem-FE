@@ -6,18 +6,8 @@ import { removePromotion, selectTotal } from '~/reducer/cartReducer'
 import { AppDispatch, RootState } from '~/redux/store'
 import OrderService from '~/service/OrderService'
 import { RegisterOptions, SubmitHandler, useForm } from 'react-hook-form'
+import { NotificationType, formCheckOut, paymentType } from "~/config/Types"
 import PaymentService from '~/service/PaymentService'
-type NotificationType = 'success' | 'info' | 'warning' | 'error';
-enum paymentMethod {
-    VNPAY = "VNPAY",
-    CASH = "CASH"
-}
-interface formCheckOut {
-    name: string,
-    phone: string,
-    address: string,
-    paymentType: paymentMethod
-}
 function CheckOutBox() {
     const [api, contextHolder] = notification.useNotification();
     const openNotificationWithIcon = (type: NotificationType, message: string, description: string) => {
@@ -37,7 +27,7 @@ function CheckOutBox() {
     } = useForm<formCheckOut>()
     const onSubmit: SubmitHandler<formCheckOut> = async (data) => {
         const result = await OrderService.CreateOrder({ ...data }, promotionCode, userId)
-        if (data.paymentType === paymentMethod.CASH) {
+        if (data.paymentType === paymentType.CASH) {
             dispatch(removePromotion())
             openNotificationWithIcon('success', "Đặt hàng thành công", "")
             setTimeout(() => {
@@ -45,11 +35,7 @@ function CheckOutBox() {
             }, 1500)
             return;
         }
-        const urlParam = new URLSearchParams()
-        urlParam.set("amount", total.toString())
-        urlParam.set("bankCode", "NCB")
-        dispatch(removePromotion())
-        PaymentService.paymentVNPay(urlParam, result.data.result).then((res) => {
+        PaymentService.paymentVNPay(total, result.data.result).then((res) => {
             window.open(res.data.result)
         })
     }
@@ -91,11 +77,11 @@ function CheckOutBox() {
                 {errors.phone && <div className='text-red-500'>{errors.phone.message}</div>}
                 <span>Giá trị đơn hàng cần thanh toán: {total.toLocaleString()}</span>
                 <div>
-                    <input {...register('paymentType')} defaultChecked name='paymentType' id='CASH' type='radio' value={paymentMethod.CASH}></input>
+                    <input {...register('paymentType')} defaultChecked name='paymentType' id='CASH' type='radio' value={paymentType.CASH}></input>
                     <label htmlFor='CASH'> Thanh toán bằng tiền mặt</label>
                 </div>
                 <div>
-                    <input {...register('paymentType')} name='paymentType' id='VNPAY' type='radio' value={paymentMethod.VNPAY}></input>
+                    <input {...register('paymentType')} name='paymentType' id='VNPAY' type='radio' value={paymentType.VNPAY}></input>
                     <label htmlFor='VNPAY'> Thanh toán qua VNPay</label>
                 </div>
                 <button className='border w-5/12 m-auto p-2 rounded-lg hover:bg-blue-600 hover:text-white duration-200' type='submit'>Đặt hàng ngay</button>

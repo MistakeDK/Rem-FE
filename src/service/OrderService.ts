@@ -1,14 +1,5 @@
 import axios from "~/service/axios"
-enum paymentMethod {
-    VNPAY = "VNPAY",
-    CASH = "CASH"
-}
-interface formCheckOut {
-    name: string,
-    phone: string,
-    address: string,
-    paymentType: paymentMethod
-}
+import { formCheckOut } from "~/config/Types"
 const CreateOrder = (formCheckOut: formCheckOut, promotionCode: string | null, userId: string) => {
     return axios({
         url: "/orders",
@@ -20,10 +11,11 @@ const CreateOrder = (formCheckOut: formCheckOut, promotionCode: string | null, u
         }
     })
 }
-const getOrderById = (idUser: string) => {
+const getOrderById = (idUser: string, param: URLSearchParams) => {
     return axios({
         url: `/orders/${idUser}`,
-        method: "GET"
+        method: "GET",
+        params: param
     })
 }
 const OrderService = {

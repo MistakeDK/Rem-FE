@@ -32,6 +32,9 @@ instance.interceptors.response.use(
             localStorage.clear()
             window.location.href = '/error401'
         }
+        else if (err.response?.status === 404) {
+            window.location.href = '/error404'
+        }
         return Promise.reject(err)
     }
 )

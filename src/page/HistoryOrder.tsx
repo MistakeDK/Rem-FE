@@ -5,71 +5,39 @@ import HistoryOrderItem from '~/component/HistoryOrderItem'
 import { RootState } from '~/redux/store'
 import OrderService from '~/service/OrderService'
 import PaymentService from '~/service/PaymentService'
-
-enum PromotionType {
-    PERCENT = "PERCENT",
-    DIRECT = "DIRECT"
-}
-enum PaymentType {
-    VNPAY = "VNPAY",
-    CASH = "CASH"
-}
-enum Status {
-    RECEIVED = "Đã nhận yêu cầu",
-    IN_DELIVERY = "Đang giao hàng",
-    DELIVERED = "Giao thành công"
-}
-interface Order {
-    id: string
-    name: string
-    phone: string
-    address: string
-    valueVoucher: number | null
-    promotionType: string | null
-    time_Create: string
-    isPaid: boolean
-    paymentType: PaymentType
-    status: Status
-    orderDetails: Array<OrderDetail>
-}
-interface OrderDetail {
-    productId: string
-    productName: string
-    price: number
-    quantity: number
-    img: string
-}
+import Util from "~/util/Util"
+import { Order, paymentType, PromotionType } from "~/config/Types"
 function HistoryOrder() {
     const idUser = useSelector((state: RootState) => state.auth.id) || ""
+    const [page, SetPage] = useState(1)
+    const [totalPage, SetTotalPage] = useState<number>(0)
     const [order, SetOrder] = useState<Order[]>([])
     useEffect(() => {
-        OrderService.getOrderById(idUser).then((res) => {
-            SetOrder(res.data.result.items)
+        const param = new URLSearchParams()
+        param.set("pageNo", page.toString())
+        OrderService.getOrderById(idUser, param).then((res) => {
+            if (page !== 1) {
+                SetOrder((pre) => [...pre, ...res.data.result.items])
+            } else {
+                SetOrder(res.data.result.items)
+            }
+            SetTotalPage(res.data.result.totalPage)
         })
-    }, [])
-    const formatDate = (dateString: string) => {
-        const date = new Date(dateString);
-        const day = String(date.getDate()).padStart(2, '0');
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const year = String(date.getFullYear()).slice(-2);
+    }, [page, idUser])
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight && page < totalPage) {
+                SetPage((prevPage) => prevPage + 1);
+            }
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, [page, totalPage]);
 
-        return `${day}/${month}/${year}`;
-    };
-    const calculateTotal = (Order: Order) => {
-        Order.valueVoucher = Order.valueVoucher || 0
-        let sum = Order.orderDetails.reduce((acc, value) => acc + value.price * value.quantity, 0)
-        if (Order.promotionType == PromotionType.DIRECT) {
-            sum -= Order.valueVoucher
-        } else if (Order.promotionType == PromotionType.PERCENT) {
-            sum -= sum * Order.valueVoucher / 100
-        }
-        return sum
-    }
     const payment = (total: number, id: string) => {
-        const urlParam = new URLSearchParams()
-        urlParam.set("amount", total.toString())
-        urlParam.set("bankCode", "NCB")
-        PaymentService.paymentVNPay(urlParam, id).then((res) => {
+        PaymentService.paymentVNPay(total, id).then((res) => {
             window.open(res.data.result)
         })
     }
@@ -84,14 +52,14 @@ function HistoryOrder() {
     }
     const renderListOrder = () => {
         return order.map((index) => {
-            const total = calculateTotal(index)
+            const total = Util.calculateTotal(index)
             return (
                 <div className='flex flex-col  rounded-md'>
                     <div className='bg-gray-400 grid grid-cols-5 text-center rounded-t-md'>
                         <div>
                             <span className='opacity-70'>Thời gian đặt hàng</span>
                             <br />
-                            <span>{formatDate(index.time_Create)}</span>
+                            <span>{Util.formatDate(index.time_Create)}</span>
                         </div>
                         <div>
                             <span className='opacity-70'>Số điện thoại</span>
@@ -119,13 +87,13 @@ function HistoryOrder() {
                     <div className='bg-gray-400 p-2'>
                         <Tag color='blue'>{index.status.valueOf()}</Tag>
                         <Tag color='blue'>{index.isPaid ? "Đã Thanh toán" : "Chưa Thanh toán"}</Tag>
-                        <Tag color='blue'>{index.paymentType == PaymentType.VNPAY ? "VNPAY" : "Tiền mặt"}</Tag>
-                        {index.paymentType == PaymentType.VNPAY && !index.isPaid &&
+                        <Tag color='blue'>{index.paymentType == paymentType.VNPAY ? "VNPAY" : "Tiền mặt"}</Tag>
+                        {index.paymentType == paymentType.VNPAY && !index.isPaid &&
                             <button onClick={() => payment(total, index.id)} className='p-1 bg-orange-400 rounded-md' color='green'>Thanh Toán ngay</button>
                         }
                     </div>
                     <div>
-                        <HistoryOrderItem order={index.orderDetails} />
+                        <HistoryOrderItem order={index.orderDetails} idOrder={index.id} isPaid={index.isPaid} />
                     </div>
                 </div>
             )

@@ -1,4 +1,4 @@
-import { message } from 'antd'
+import { Result, message } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import CartItem from '~/component/CartItem'
@@ -16,7 +16,6 @@ interface CartItem {
 }
 
 function ListCart() {
-    const [isLoading, SetIsLoading] = useState(true)
     const idUser = useSelector((state: RootState) => state.auth.id) || ""
     const [cartItem, SetCartItem] = useState<CartItem[]>([])
     const dispatch: AppDispatch = useDispatch()
@@ -27,25 +26,29 @@ function ListCart() {
             })
         )
     }
+    const listCartEmptyScreen = () => {
+        return (
+            <Result status={'info'} subTitle="Vui lòng thêm sản phẩm vào giỏ hàng" title="Giỏ hàng rỗng"></Result>
+        )
+    }
     useEffect(() => {
         CartService.getList(idUser).then(async (res) => {
             SetCartItem(res.data.result)
             dispatch(setItems(res.data.result))
-        }).catch((err) => {
-            console.log(err)
+        }).catch(() => {
+
             message.error("Lỗi Server")
-        }).finally(() => {
-            SetIsLoading(false)
         })
     }, [])
 
     return (
-        !isLoading && (<div className='flex flex-col'>
+        <div className='flex flex-col'>
             <div className='min-h-svh p-4 border border-gray-300 rounded-lg divide-y-2'>
-                {render()}
+                {cartItem.length > 0 ? render() : listCartEmptyScreen()}
             </div>
         </div>)
-    )
+
+
 }
 
 export default ListCart

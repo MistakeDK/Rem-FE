@@ -1,9 +1,10 @@
 import { faMinus, faPhone, faPlus, faTruck } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { message, notification } from 'antd'
+import { Rate, message, notification } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom'
+import CommentProduct from '~/component/CommentProduct'
 import { typeProduct } from '~/config/Types'
 import { RootState } from '~/redux/store'
 import CartService from '~/service/CartService'
@@ -45,38 +46,54 @@ function ProductDetail() {
         })
     }
     return (
-        <div className='flex justify-center p-4'>
-            {contextHolder}
-            <div className='w-8/12 grid grid-cols-2 gap-8'>
-                <div>
-                    <img src={product?.img} />
+        <div className=''>
+            <div className='flex justify-center p-4'>
+                {contextHolder}
+                <div className='w-8/12 grid grid-cols-2 gap-8'>
+                    <div>
+                        <img src={product?.img} />
+                    </div>
+                    <div className='flex flex-col'>
+                        <div>
+                            <span className='text-2xl font-semibold'>{product?.name}</span>
+                            <br />
+                            <span className='text-xl font-semibold text-red-600'>{product?.price.toLocaleString()} VND</span>
+                            <div>
+                                <Rate disabled defaultValue={product?.rateStar || 5} />
+                                <br />
+                                <span className='opacity-40'>Số lượt đánh giá:{product?.totalReview}</span>
+                            </div>
+                            <span>{product?.description}</span>
+                        </div>
+                        <div className=''>
+                            <div className='flex mt-16 font-medium'>
+                                <FontAwesomeIcon icon={faTruck} size='2x' opacity={"0.8"} color='green' />
+                                <span className='px-2'>Giao hàng tận nơi miễn phí Ship</span>
+                            </div>
+                            <div className='flex mt-4 font-medium'>
+                                <FontAwesomeIcon icon={faPhone} size='2x' opacity={"0.8"} color='green' />
+                                <span className='px-4'>Liên hệ 24/7</span>
+                            </div>
+                            <div className='items-center flex w-4/12 h-14 mt-4 border rounded-2xl border-gray-950 text-center'>
+                                <button onClick={() => { decrease() }} className='w-1/3'>
+                                    <FontAwesomeIcon icon={faMinus} />
+                                </button>
+                                <span className='w-1/3'>{quantity}</span>
+                                <button onClick={() => { increase() }} className='w-1/3'>
+                                    <FontAwesomeIcon icon={faPlus} />
+                                </button>
+                            </div>
+                            <button onClick={() => addToCart()} className='mt-4 bg-green-600 w-fit p-3 rounded-lg text-white'>
+                                Thêm vào giỏ hàng ngay
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <div className='flex flex-col'>
-                    <span className='text-2xl font-semibold'>{product?.name}</span>
-                    <span className='text-xl font-semibold text-red-600'>{product?.price.toLocaleString()} VND</span>
-                    <span>
-                        {product?.description}
-                    </span>
-                    <div className='flex mt-16 font-medium'>
-                        <FontAwesomeIcon icon={faTruck} size='2x' opacity={"0.8"} color='green' />
-                        <span className='px-2'>Giao hàng tận nơi miễn phí Ship</span>
-                    </div>
-                    <div className='flex mt-4 font-medium'>
-                        <FontAwesomeIcon icon={faPhone} size='2x' opacity={"0.8"} color='green' />
-                        <span className='px-4'>Liên hệ 24/7</span>
-                    </div>
-                    <div className='items-center flex w-4/12 h-14 mt-4 border rounded-2xl border-gray-950 text-center'>
-                        <button onClick={() => { decrease() }} className='w-1/3'>
-                            <FontAwesomeIcon icon={faMinus} />
-                        </button>
-                        <span className='w-1/3'>{quantity}</span>
-                        <button onClick={() => { increase() }} className='w-1/3'>
-                            <FontAwesomeIcon icon={faPlus} />
-                        </button>
-                    </div>
-                    <button onClick={() => addToCart()} className='flex mt-4 bg-green-600 w-fit p-3 rounded-lg text-white'>
-                        Thêm vào giỏ hàng ngay
-                    </button>
+            </div>
+            <div className='flex justify-center w-6/12 py-2 '>
+                <div className='flex flex-col space-y-4'>
+                    <span>Đánh giá</span>
+                    <CommentProduct idProduct={id} />
                 </div>
             </div>
         </div>
