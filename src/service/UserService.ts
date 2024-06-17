@@ -37,10 +37,13 @@ const refreshToken = (token: string) => {
         }
     })
 }
-const verifyAccount = (code: string) => {
+const verifyAccount = (code: string, username: string) => {
     return axios({
-        url: `/users/${code}`,
+        url: `/users/${username}`,
         method: "PATCH",
+        params: {
+            code: code
+        }
     })
 }
 const getMyInfo = () => {

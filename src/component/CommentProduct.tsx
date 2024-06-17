@@ -1,5 +1,5 @@
 import { UserOutlined } from '@ant-design/icons'
-import { Avatar, Rate } from 'antd'
+import { Avatar, Rate, Result } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { review } from '~/config/Types'
 import ReviewService from '~/service/ReviewService'
@@ -48,9 +48,27 @@ function CommentProduct({ idProduct }: { idProduct: string }) {
             )
         })
     }
+    const nullComentScreen = () => {
+        return (
+            <div className='justify-center'>
+                <Result title="Sản phẩm chưa có đánh giá nào" />
+            </div>
+        )
+    }
+    const borderComment = () => {
+        return (
+            comment.length !== 0 ? (
+                <div className='flex flex-col justify-center w-6/12 py-2'>
+                    {renderListComment()}
+                </div>
+            ) : (
+                nullComentScreen()
+            )
+        )
+    }
     return (
         <div>
-            {renderListComment()}
+            {borderComment()}
         </div>
     )
 }

@@ -62,7 +62,7 @@ function SignUp() {
             return 'Tuổi phải lớn hơn hoặc bằng 18';
         }
     }
-    const { register, handleSubmit, formState: { errors, isSubmitSuccessful }, reset } = useForm<formSignUp>()
+    const { register, handleSubmit, formState: { errors }, reset } = useForm<formSignUp>()
     const onSubmit = async (form: formSignUp) => {
         UserService.signUp(form).then((res) => {
             SetSignUpSuccess(true)
@@ -110,7 +110,7 @@ function SignUp() {
             <div className="w-9/12">
                 <div className="grid grid-cols-2 gap-1">
                     <div className="w-9/12 m-auto">
-                        {!isSubmitSuccessful && signUpSuccess ? formSignUp() : waitScreen()}
+                        {!signUpSuccess ? formSignUp() : waitScreen()}
                     </div>
                     <div>
                         <img src={WelcomeIMG} />

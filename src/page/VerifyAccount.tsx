@@ -8,10 +8,11 @@ function VerifyAccount() {
     const navigate = useNavigate()
     const [searchParams] = useSearchParams()
     const code = searchParams.get(`code`) || ""
+    const username = searchParams.get(`username`) || ""
     const [loading, SetLoading] = useState(true)
     useEffect(() => {
         const callApi = async () => {
-            await UserService.verifyAccount(code).
+            await UserService.verifyAccount(code, username).
                 then((res) => {
                     SetLoading(!loading)
                 }).

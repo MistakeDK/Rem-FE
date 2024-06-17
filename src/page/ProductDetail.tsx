@@ -35,6 +35,7 @@ function ProductDetail() {
             ProductService.getById(id).then((res) => {
                 SetProduct(res.data.result)
             })
+            console.log(product)
         }
         CallApi()
     }, [])
@@ -46,6 +47,7 @@ function ProductDetail() {
         })
     }
     return (
+        product &&
         <div className=''>
             <div className='flex justify-center p-4'>
                 {contextHolder}
@@ -90,9 +92,8 @@ function ProductDetail() {
                     </div>
                 </div>
             </div>
-            <div className='flex justify-center w-6/12 py-2 '>
-                <div className='flex flex-col space-y-4'>
-                    <span>Đánh giá</span>
+            <div className='flex justify-center p-4'>
+                <div className='w-8/12'>
                     <CommentProduct idProduct={id} />
                 </div>
             </div>
