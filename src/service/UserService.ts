@@ -10,6 +10,15 @@ const login = (username: string, password: string) => {
         }
     })
 }
+const outbounndLogin = (code: string) => {
+    return axios({
+        url: `/auth/outbound/authentication`,
+        method: "POST",
+        params: {
+            code: code
+        }
+    })
+}
 const signUp = (data: FormDataSignUp) => {
     return axios({
         url: `/users`,
@@ -55,6 +64,7 @@ const getMyInfo = () => {
 const UserService = {
     verifyAccount,
     login,
+    outbounndLogin,
     signUp,
     refreshToken,
     getMyInfo,

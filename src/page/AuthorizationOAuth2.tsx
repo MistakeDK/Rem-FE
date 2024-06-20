@@ -7,18 +7,20 @@ import { login } from '~/reducer/authReducer'
 import { AppDispatch } from '~/redux/store'
 import UserService from '~/service/UserService'
 
+
 function AuthorizationOAuth2() {
     const [isloading, SetIsLoading] = useState(true)
     const navigate = useNavigate()
     const urlParams = new URLSearchParams(window.location.search)
-    const auth = urlParams.get("name") || ""
     const dispatch: AppDispatch = useDispatch()
     useEffect(() => {
-        UserService.login(auth, "").then((res) => {
-            dispatch(login({ username: auth, isAuthenticated: true, id: res.data }))
-            localStorage.setItem('token', res.data.result.token)
+        const code = urlParams.get('code')
+        UserService.outbounndLogin(code as string).then((res) => {
+            console.log(res.data)
+            dispatch(login({ id: res.data.result.id, isAuthenticated: true, username: res.data.result.username }))
+            localStorage.setItem("token", res.data.result.token)
         }).catch(() => {
-            message.error("Lỗi Server")
+            message.error("Xác thực thất bại")
         }).finally(() => {
             SetIsLoading(false)
         })

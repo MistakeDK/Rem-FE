@@ -11,6 +11,8 @@ import { AppDispatch } from "~/redux/store"
 import { useDispatch } from "react-redux"
 import { login } from "~/reducer/authReducer"
 import { RegisterOptions, useForm } from "react-hook-form"
+import { faGoogle } from "@fortawesome/free-brands-svg-icons/faGoogle"
+import { OAuthConfig } from "~/config/OAuthConfig"
 interface formLogin {
     username: string,
     password: string
@@ -42,6 +44,15 @@ export default function Login() {
         },
         required: "Vui lòng nhập Mật khẩu"
     }
+    const LoginWithGoogle = () => {
+        const callbackUrl = OAuthConfig.redirectUri
+        const authUrl = OAuthConfig.authUri
+        const googleClientId = OAuthConfig.clientId
+        const targetUrl = `${authUrl}?redirect_uri=${encodeURIComponent(
+            callbackUrl
+        )}&response_type=code&client_id=${googleClientId}&scope=openid%20email%20profile`;
+        window.location.href = targetUrl
+    }
     return (
         <div className="flex justify-center">
             <div className="w-9/12">
@@ -60,17 +71,17 @@ export default function Login() {
                             duration-200" type="submit">
                                 Đăng nhập
                             </button>
-                            {/* <div className="rounded-xl bg-gray-400 w-full h-1 my-6"></div> */}
-                            {/* <div className="flex justify-center flex-col ">
-                                <div className="flex items-center p-2 border rounded-2xl hover:bg-red-300 hover:text-white duration-200">
-                                    <FontAwesomeIcon icon={faFacebook} fontSize={"250%"} color="blue" />
-                                    <span className="px-4">Đăng nhập với FaceBook</span>
+                            <div className="rounded-xl bg-gray-400 w-full h-1 my-6"></div>
+                            <div className="flex justify-center flex-col ">
+                                <div onClick={() => LoginWithGoogle()} className="flex items-center p-2 border rounded-2xl hover:bg-red-300 hover:text-white duration-200">
+                                    <FontAwesomeIcon icon={faGoogle} fontSize={"250%"} />
+                                    <span className="px-4">Đăng nhập với Google</span>
                                 </div>
-                                <div className="flex items-center p-2 border rounded-2xl mt-2 hover:bg-red-300 hover:text-white duration-200">
+                                {/* <div className="flex items-center p-2 border rounded-2xl mt-2 hover:bg-red-300 hover:text-white duration-200">
                                     <FontAwesomeIcon icon={faGithub} fontSize={"250%"} color="black" />
                                     <span className="px-4">Đăng nhập với Github</span>
-                                </div>
-                            </div> */}
+                                </div> */}
+                            </div>
                         </form>
                     </div>
                     <div>
