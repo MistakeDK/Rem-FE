@@ -19,6 +19,7 @@ import ErrorCode401 from '~/page/ErrorCode401'
 import Introduce from '~/page/Introduce'
 import ErrorCode404 from '~/page/ErrorCode404'
 import ChangePassword from '~/page/ChangePassword'
+import Footer from '~/component/Footer'
 
 function App() {
   return (
@@ -47,6 +48,7 @@ function App() {
         <Route path='/error401' element={<ErrorCode401 />}></Route>
         <Route path='*' element={<ErrorCode404 />}></Route>
       </Routes>
+      <Footer></Footer>
     </BrowserRouter>
   )
 }

@@ -20,7 +20,7 @@ function Profile() {
     }
     const username = useSelector((state: RootState) => state.auth.username)
     return (
-        <div className='flex justify-center p-4'>
+        <div className='flex justify-center p-4 min-h-screen'>
             <div className='w-11/12'>
                 <div className='flex'>
                     <div className='flex flex-col border  bg-gray-100 w-4/12 shadow-custom h-80 pt-2'>

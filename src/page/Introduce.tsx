@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 function Introduce() {
     const navigate = useNavigate()
     return (
-        <Result
+        <Result className='min-h-screen'
             status="info"
             title="Trang web Chưa phát triển"
             subTitle="Vui lòng thử lại sau"
