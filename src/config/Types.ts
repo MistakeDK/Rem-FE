@@ -63,6 +63,7 @@ export interface Order {
     paymentType: paymentType
     status: Status
     orderDetails: Array<OrderDetail>
+    total: number
 }
 export interface OrderDetail {
     productId: string
@@ -84,4 +85,9 @@ export interface review {
     rateStar: number
     review: string
     timeCreate: string
+}
+export interface ChangePasswordForm {
+    oldPassword: string,
+    newPassword: string,
+    confirmPassword: string
 }

@@ -52,7 +52,6 @@ function HistoryOrder() {
     }
     const renderListOrder = () => {
         return order.map((index) => {
-            const total = Util.calculateTotal(index)
             return (
                 <div className='flex flex-col  rounded-md'>
                     <div className='bg-gray-400 grid grid-cols-5 text-center rounded-t-md'>
@@ -76,12 +75,12 @@ function HistoryOrder() {
                             <br />
                             <span>{index.promotionType == PromotionType.DIRECT ?
                                 index.valueVoucher?.toLocaleString() :
-                                (total * (index.valueVoucher as number / 100)).toLocaleString()}</span>
+                                (index.total * (index.valueVoucher as number / 100)).toLocaleString()}</span>
                         </div>
                         <div>
                             <span className='opacity-70'>Tổng giá trị</span>
                             <br />
-                            <span>{total.toLocaleString()}</span>
+                            <span>{index.total.toLocaleString()}</span>
                         </div>
                     </div>
                     <div className='bg-gray-400 p-2'>
@@ -89,7 +88,7 @@ function HistoryOrder() {
                         <Tag color='blue'>{index.isPaid ? "Đã Thanh toán" : "Chưa Thanh toán"}</Tag>
                         <Tag color='blue'>{index.paymentType == paymentType.VNPAY ? "VNPAY" : "Tiền mặt"}</Tag>
                         {index.paymentType == paymentType.VNPAY && !index.isPaid &&
-                            <button onClick={() => payment(total, index.id)} className='p-1 bg-orange-400 rounded-md' color='green'>Thanh Toán ngay</button>
+                            <button onClick={() => payment(index.total, index.id)} className='p-1 bg-orange-400 rounded-md' color='green'>Thanh Toán ngay</button>
                         }
                     </div>
                     <div>

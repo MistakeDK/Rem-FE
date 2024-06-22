@@ -16,7 +16,6 @@ function AuthorizationOAuth2() {
     useEffect(() => {
         const code = urlParams.get('code')
         UserService.outbounndLogin(code as string).then((res) => {
-            console.log(res.data)
             dispatch(login({ id: res.data.result.id, isAuthenticated: true, username: res.data.result.username }))
             localStorage.setItem("token", res.data.result.token)
         }).catch(() => {

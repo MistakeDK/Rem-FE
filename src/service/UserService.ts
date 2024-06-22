@@ -1,4 +1,4 @@
-import { FormDataSignUp } from "~/config/Types";
+import { ChangePasswordForm, FormDataSignUp } from "~/config/Types";
 import axios from "~/service/axios";
 const login = (username: string, password: string) => {
     return axios({
@@ -61,9 +61,19 @@ const getMyInfo = () => {
         method: "GET"
     })
 }
+const changePassword = (id: string, data: ChangePasswordForm) => {
+    return axios({
+        url: `/users/changePassword/${id}`,
+        method: "PATCH",
+        data: {
+            ...data
+        }
+    })
+}
 const UserService = {
     verifyAccount,
     login,
+    changePassword,
     outbounndLogin,
     signUp,
     refreshToken,

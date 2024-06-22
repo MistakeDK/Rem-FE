@@ -18,6 +18,7 @@ import ErrorCode500 from '~/page/ErrorCode500'
 import ErrorCode401 from '~/page/ErrorCode401'
 import Introduce from '~/page/Introduce'
 import ErrorCode404 from '~/page/ErrorCode404'
+import ChangePassword from '~/page/ChangePassword'
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
           <Route path='/profile' element={<Profile />}>
             <Route path='InfoUser' element={<InfoUser />}></Route>
             <Route path='HistoryOrder' element={<HistoryOrder />}></Route>
+            <Route path='ChangePassword' element={<ChangePassword />}></Route>
             <Route path='' element={<Navigate to={"/profile/InfoUser"} />}></Route>
           </Route>
           <Route path='/cart' element={<Cart />}></Route>
