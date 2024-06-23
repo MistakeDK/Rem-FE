@@ -5,11 +5,12 @@ import { useSelector } from 'react-redux'
 import { ChangePasswordForm } from '~/config/Types'
 import { RootState } from '~/redux/store'
 import UserService from '~/service/UserService'
+import Util from '~/util/Util'
 
 
 
 function ChangePassword() {
-    const { register, handleSubmit, formState: { errors }, getValues } = useForm<ChangePasswordForm>()
+    const { register, handleSubmit, formState: { errors }, getValues, setError } = useForm<ChangePasswordForm>()
     const idUser = useSelector((state: RootState) => state.auth.id)
     const onSubmit = (value: ChangePasswordForm) => {
         UserService.changePassword(idUser as string, value).then((res) => {
@@ -18,7 +19,9 @@ function ChangePassword() {
                 window.location.reload()
             }, 1000)
         }).catch((err) => {
-            message.error("Đổi mật khẩu thất bại")
+            setError("oldPassword", {
+                message: Util.SetErrorField(err)
+            })
         })
     }
     const ValidateOldPassword: RegisterOptions<ChangePasswordForm, "oldPassword"> = {

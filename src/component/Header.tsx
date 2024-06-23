@@ -22,8 +22,8 @@ function Header() {
     }
 
     return (
-        <div>
-            <div className='flex justify-around p-2'>
+        <div className='sticky z-50 top-0 bg-header'>
+            <div className='flex justify-around'>
                 <div className='flex h-1/2 pt-2 relative w-1/2'>
                     <img onClick={() => { navigate("/") }} src={LOGOCustomize} className='w-36 mr-12' />
                     <input onChange={(e) => { SetSearch(e.target.value) }} className='p-2 border-red-300 border rounded-lg w-full focus:outline-none' placeholder='Search'></input>

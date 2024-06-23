@@ -54,11 +54,20 @@ function CartSumary() {
     return (
         <div className=' space-y-4 flex flex-col'>
             <div className='border-gray-300 rounded-lg border p-4'>
-                <p className='text-2xl font-bold'>Cart Summary</p>
-                <p className='text-xl'>Giá trị đơn hàng: {preTotal.toLocaleString()}</p>
-                <p className='text-xl'>giảm giá: {(preTotal - total).toLocaleString()}</p>
+                <p className='text-2xl font-bold'>Tóm tắt</p>
+                <div className='flex justify-between'>
+                    <p className='text-xl'>Giá trị đơn hàng: </p>
+                    <span>{preTotal.toLocaleString()}</span>
+                </div>
+                <div className='flex justify-between'>
+                    <p className='text-xl'>Giảm giá: </p>
+                    <span>{(preTotal - total).toLocaleString()}</span>
+                </div>
                 <div className='px-2 bg-gray-300 h-0.5 mt-2'></div>
-                <p className='text-xl'>Tổng giá trị: {total.toLocaleString()}</p>
+                <div className='flex justify-between'>
+                    <p className='text-xl'>Tổng giá trị: </p>
+                    <span>{total.toLocaleString()}</span>
+                </div>
             </div>
             <div className='border-gray-300 rounded-lg border p-4 relative'>
                 <p className='text-2xl font-bold'>Mã giảm giá</p>
@@ -74,8 +83,9 @@ function CartSumary() {
                 <button onClick={() => { total !== 0 ? SetIsModalOpen(true) : message.info("Vui lòng thêm sản phẩm vào giỏ hàng") }}
                     className='text-center w-full border rounded-lg p-2 bg-blue-600 text-white'>Thanh toán
                 </button>
-                <p className='mt-2'>The estimated tax will be confirmed once you added your shipping address in checkout.
-                    Final prices and shipping costs are confirmed at checkout
+                <p className='mt-2'>
+                    Miễn phí vận chuyển cho tất cả các đơn hàng.
+                    Bạn có thể thanh toán bằng VNPay hoặc tiền mặt khi nhận hàng.
                 </p>
                 {ModalCheckBox()}
             </div>

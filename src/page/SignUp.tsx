@@ -6,6 +6,7 @@ import UserService from "~/service/UserService"
 import { message } from "antd"
 import { CheckCircleFilled, LoadingOutlined } from "@ant-design/icons"
 import { RegisterOptions, useForm } from "react-hook-form"
+import Util from "~/util/Util"
 interface formSignUp {
     username: string,
     password: string
@@ -62,24 +63,25 @@ function SignUp() {
             return 'Tuổi phải lớn hơn hoặc bằng 18';
         }
     }
-    const { register, handleSubmit, formState: { errors }, reset } = useForm<formSignUp>()
+    const { register, handleSubmit, formState: { errors }, reset, setError } = useForm<formSignUp>()
     const onSubmit = async (form: formSignUp) => {
         UserService.signUp(form).then((res) => {
             SetSignUpSuccess(true)
-        }).catch(() => {
-            reset()
-            message.error("Trùng Email hoặc tên đăng nhập")
+        }).catch((err) => {
+            setError("root", {
+                message: Util.SetErrorField(err)
+            })
         })
     }
     const formSignUp = () => {
         return (
-            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
+            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col min-h-screen">
                 <img src={LOGOCustomize} />
                 <label className="w-fit">Tên đăng nhập</label>
                 <input {...register("username", validateUsername)} className="border rounded-lg focus:outline-none h-9 p-2" type="text" name="username" ></input>
                 {errors.username && <div className='text-red-500'>{errors.username.message}</div>}
                 <label className="w-fit">Mật khẩu</label>
-                <input {...register("password", validatePassword)} className="border rounded-lg focus:outline-none h-9 p-2" type="text" name="password" ></input>
+                <input {...register("password", validatePassword)} className="border rounded-lg focus:outline-none h-9 p-2" type="password" name="password" ></input>
                 {errors.password && <div className='text-red-500'>{errors.password.message}</div>}
                 <label className="w-fit">Email</label>
                 <input {...register("email", validateEmail)} className="border rounded-lg focus:outline-none h-9 p-2" type="text" name="email" ></input>
@@ -90,6 +92,7 @@ function SignUp() {
                 <label className="w-fit">Ngày sinh</label>
                 <input {...register("dob", validateDob)} className="border rounded-lg focus:outline-none h-9 p-2" type="date" name="dob"></input>
                 {errors.dob && <div className='text-red-500'>{errors.dob.message}</div>}
+                {errors.root?.message && <div className="text-red-500">{errors.root.message}</div>}
                 <button className="border mt-4 w-full h-12 rounded-md text-white bg-black hover:bg-blue-600
              transition-colors duration-500 ease-in-out" type="submit">
                     Đăng Ký

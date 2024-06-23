@@ -7,6 +7,7 @@ import ProductService from '~/service/ProductService';
 import type { InputNumberProps } from 'antd';
 import { CheckboxValueType } from 'antd/es/checkbox/Group';
 import CategoryService from '~/service/CategoryService';
+import Util from '~/util/Util';
 function ProductList() {
     const [currentPage, SetCurrentPage] = useState<number>(1)
     const [totalPage, SetTotalPage] = useState<number>()
@@ -38,14 +39,14 @@ function ProductList() {
                             key={key} onClick={() => { message.info("Sản phẩm tạm hết") }}>
                             <img src={index.img} className='w-auto rounded-md hover:scale-95 duration-150' />
                             <span className='px-2'>{index.name}</span>
-                            <span className='px-2'>{index.price.toLocaleString()}</span>
+                            <span className='px-2'>Sản phẩm tạm hết</span>
                         </div>
                     )
                 }
                 return (
                     <div className='flex flex-col rounded-lg border text-xl cursor-pointer p-2 bg-green-300' key={key} onClick={() => { navigate(`/product/${index.id}`) }}>
                         <img src={index.img} className='w-auto rounded-md hover:scale-95 duration-150' />
-                        <span className='px-2'>{index.name}</span>
+                        <span className='px-2'>{Util.subText(index.name, 18)}</span>
                         <span className='px-2'>{index.price.toLocaleString()}</span>
                     </div>
                 )
@@ -102,7 +103,7 @@ function ProductList() {
                         <Slider min={10000} max={2000000} defaultValue={2000000} onChange={onChangeValue} step={20000} className='w-6/12' />
                     </div>
                     <span className='py-2'>Sắp Xếp theo</span>
-                    <Select className='w-5/12 my-2'
+                    <Select className='w-6/12 my-2'
                         defaultValue={"price:desc"}
                         options={[
                             { value: "price:desc", label: 'Giá giảm dần' },

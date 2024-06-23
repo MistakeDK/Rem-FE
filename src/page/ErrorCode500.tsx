@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom'
 function ErrorCode500() {
     const navigate = useNavigate()
     return (
-        <Result
+        <Result className='min-h-screen'
             status="500"
             title="500"
             subTitle="Đã có lỗi xảy ra"

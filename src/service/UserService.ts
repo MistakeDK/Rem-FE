@@ -1,4 +1,4 @@
-import { ChangePasswordForm, FormDataSignUp } from "~/config/Types";
+import { ChangePasswordForm, FormDataSignUp, LoginType } from "~/config/Types";
 import axios from "~/service/axios";
 const login = (username: string, password: string) => {
     return axios({

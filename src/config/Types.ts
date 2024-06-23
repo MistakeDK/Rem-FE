@@ -91,3 +91,7 @@ export interface ChangePasswordForm {
     newPassword: string,
     confirmPassword: string
 }
+export enum LoginType {
+    GOOGLE = "GOOGLE",
+    GITHUB = "GITHUB"
+}

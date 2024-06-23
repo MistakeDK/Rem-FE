@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 function ErrorCode404() {
     const navigate = useNavigate()
     return (
-        <Result
+        <Result className='min-h-screen'
             status="404"
             title="404"
             subTitle="Trang không tồn tại"

@@ -23,7 +23,8 @@ function CheckOutBox() {
     const dispatch: AppDispatch = useDispatch()
     const { register,
         handleSubmit,
-        formState: { errors }
+        formState: { errors },
+        setError
     } = useForm<formCheckOut>()
     const onSubmit: SubmitHandler<formCheckOut> = async (data) => {
         const result = await OrderService.CreateOrder({ ...data }, promotionCode, userId)
@@ -62,17 +63,17 @@ function CheckOutBox() {
             <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col space-y-4 relative'>
                 <div>
                     <label className='' htmlFor='name'>Tên người nhận: </label>
-                    <input {...register("name", validateName)} id='name' type='text' name='name' className='outline-none border-b-2 w-[300px]'></input>
+                    <input {...register("name", validateName)} id='name' type='text' name='name' className='outline-none border-b-2 block w-full'></input>
                 </div>
                 {errors.name && <div className='text-red-500'>{errors.name.message}</div>}
                 <div>
                     <label className='' htmlFor='address'>Địa Chỉ: </label>
-                    <input {...register("address", validateAddress)} id='address' type='text' name='address' className='outline-none border-b-2 w-[350px]'></input>
+                    <input {...register("address", validateAddress)} id='address' type='text' name='address' className='outline-none border-b-2 block w-full'></input>
                 </div>
                 {errors.address && <div className='text-red-500'>{errors.address.message}</div>}
                 <div>
                     <label className='' htmlFor='phone'>Số điện thoại: </label>
-                    <input {...register("phone", validatePhone)} id='phone' type='text' name='phone' className='outline-none border-b-2 w-[310px]'></input>
+                    <input {...register("phone", validatePhone)} id='phone' type='text' name='phone' className='outline-none border-b-2 block w-full'></input>
                 </div>
                 {errors.phone && <div className='text-red-500'>{errors.phone.message}</div>}
                 <span>Giá trị đơn hàng cần thanh toán: {total.toLocaleString()}</span>
