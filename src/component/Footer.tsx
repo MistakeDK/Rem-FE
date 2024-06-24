@@ -1,6 +1,10 @@
 import React from 'react'
 
 function Footer() {
+    const hideFooterForPath = ['/verify', '/Authorization', '/payment', '/admin']
+    if (hideFooterForPath.some(path => location.pathname.includes(path))) {
+        return <></>
+    }
     return (
         <div className='w-full flex justify-center p-8 bg-red-500'>
             <div className='grid grid-cols-3 text-white gap-x-40'>

@@ -15,6 +15,10 @@ interface formLogin {
     username: string,
     password: string
 }
+enum Role {
+    USER = "USER",
+    ADMIN = "ADMIN"
+}
 export default function Login() {
     const dispatch: AppDispatch = useDispatch()
     const navigate = useNavigate()
@@ -23,6 +27,10 @@ export default function Login() {
         UserService.login(data.username, data.password).then((res) => {
             dispatch(login({ id: res.data.result.id, isAuthenticated: true, username: data.username }))
             localStorage.setItem("token", res.data.result.token)
+            if (res.data.result.role === Role.ADMIN) {
+                navigate("/admin")
+                return;
+            }
             navigate("/")
         }).catch((err) => {
             setError("root", {

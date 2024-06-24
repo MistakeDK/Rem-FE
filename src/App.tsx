@@ -20,6 +20,10 @@ import Introduce from '~/page/Introduce'
 import ErrorCode404 from '~/page/ErrorCode404'
 import ChangePassword from '~/page/ChangePassword'
 import Footer from '~/component/Footer'
+import HomeAdmin from '~/page/Admin/HomeAdmin'
+import ListProduct from '~/page/Admin/ListProduct'
+import EditProduct from '~/page/Admin/EditProduct'
+import CreateProduct from '~/page/Admin/CreateProduct'
 
 function App() {
   return (
@@ -46,6 +50,15 @@ function App() {
         <Route path='/payment' element={<StatusPayment />}></Route>
         <Route path='/error500' element={<ErrorCode500 />}></Route>
         <Route path='/error401' element={<ErrorCode401 />}></Route>
+        <Route element={<PrivateRoute />}>
+          <Route path='/admin' element={<HomeAdmin />}>
+            <Route path='product'>
+              <Route path='ListProduct' element={<ListProduct />}></Route>
+              <Route path='CreateProduct' element={<CreateProduct />}></Route>
+              <Route path='ListProduct/:id' element={<EditProduct />}></Route>
+            </Route>
+          </Route>
+        </Route>
         <Route path='*' element={<ErrorCode404 />}></Route>
       </Routes>
       <Footer></Footer>

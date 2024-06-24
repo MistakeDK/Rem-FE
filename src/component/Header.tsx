@@ -13,7 +13,7 @@ function Header() {
     const [value] = useDebounce(search, 2000)
     const location = useLocation()
     const navigate = useNavigate()
-    const hideHeaderForPath = ['/verify', '/Authorization', '/payment']
+    const hideHeaderForPath = ['/verify', '/Authorization', '/payment', '/admin']
     if (hideHeaderForPath.some(path => location.pathname.includes(path))) {
         return <></>
     }

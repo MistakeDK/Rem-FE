@@ -83,7 +83,6 @@ function ProductList() {
                 SetCategory(transform);
             } catch (err) {
                 message.error("Lỗi Server")
-                console.log(err)
             } finally {
                 SetLoading(false)
             }
