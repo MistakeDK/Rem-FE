@@ -16,6 +16,7 @@ type FormProps = {
 function FormProduct({ product }: FormProps,) {
     const navigate = useNavigate()
     const [category, SetCategory] = useState<category[]>([])
+    console.log(product)
     const { register, handleSubmit, setValue, formState: { errors } } = useForm<formProduct>(
         {
             defaultValues: product ? {
@@ -25,7 +26,9 @@ function FormProduct({ product }: FormProps,) {
                 price: product.price,
                 isActive: product.isActive,
                 img: product.img,
-                id: product.id
+                id: product.id,
+                isHot: product.isHot,
+                isNew: product.isNew
             } : undefined
         })
     useEffect(() => {
@@ -126,6 +129,8 @@ function FormProduct({ product }: FormProps,) {
                         <label>Mô tả:</label>
                         <label>Phân loại:</label>
                         {product && <label>Trạng thái</label>}
+                        {product && <label>Sản phẩm Hot</label>}
+                        {product && <label>Sản phẩm mới</label>}
                         <label>Hình ảnh:</label>
                         {
                             product && <label>Hình ảnh ban đầu:</label>
@@ -146,6 +151,26 @@ function FormProduct({ product }: FormProps,) {
                             <option value={"true"}>hoạt động </option>
                             <option value={"false"}>không hoạt động</option>
                         </select>}
+                        {
+                            product && <span className='h-6'></span>
+                        }
+                        {
+                            product &&
+                            <select className='rounded-md outline-none' {...register("isHot")} >
+                                <option value={"true"}>Có</option>
+                                <option value={"false"}>Không</option>
+                            </select>
+                        }
+                        {
+                            product && <span className='h-6'></span>
+                        }
+                        {
+                            product &&
+                            <select className='rounded-md outline-none' {...register("isNew")}>
+                                <option value={"true"}>Có</option>
+                                <option value={"false"}>Không</option>
+                            </select>
+                        }
                         {
                             product && <span className='h-6'></span>
                         }

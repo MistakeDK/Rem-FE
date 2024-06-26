@@ -33,18 +33,23 @@ function InfoUser() {
                 >
                     <Input className='w-4/12' disabled defaultValue={userInfo?.username} />
                 </Form.Item>
-                <Form.Item<userInfo>
-                    label="Email"
-                    name="email"
-                >
-                    <Input className='w-4/12' disabled defaultValue={userInfo?.email} />
-                </Form.Item>
-                <Form.Item<userInfo>
-                    label="Số điện thoại"
-                    name="phone"
-                >
-                    <Input className='w-4/12' disabled defaultValue={userInfo?.phone} />
-                </Form.Item>
+                {
+                    userInfo?.email && <Form.Item<userInfo>
+                        label="Email"
+                        name="email"
+                    >
+                        <Input className='w-4/12' disabled defaultValue={userInfo.email} />
+                    </Form.Item>
+                }
+                {
+                    userInfo?.phone && <Form.Item<userInfo>
+                        label="Số điện thoại"
+                        name="phone"
+                    >
+                        <Input className='w-4/12' disabled defaultValue={userInfo.phone} />
+                    </Form.Item>
+                }
+
 
             </Form>
         </div>) : (<Spin />)

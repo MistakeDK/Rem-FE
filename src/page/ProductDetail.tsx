@@ -48,14 +48,14 @@ function ProductDetail() {
     }
     return (
         product &&
-        <div className=''>
+        <div className='min-h-screen'>
             <div className='flex justify-center p-4'>
                 {contextHolder}
                 <div className='w-8/12 grid grid-cols-2 gap-8'>
                     <div>
                         <img src={product?.img} />
                     </div>
-                    <div className='flex flex-col'>
+                    <div className='flex flex-col justify-between'>
                         <div>
                             <span className='text-2xl font-semibold'>{product?.name}</span>
                             <br />

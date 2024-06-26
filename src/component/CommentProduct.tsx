@@ -50,9 +50,7 @@ function CommentProduct({ idProduct }: { idProduct: string }) {
     }
     const nullComentScreen = () => {
         return (
-            <div className='justify-center'>
-                <Result title="Sản phẩm chưa có đánh giá nào" />
-            </div>
+            null
         )
     }
     const borderComment = () => {

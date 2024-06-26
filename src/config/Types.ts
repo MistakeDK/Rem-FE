@@ -98,7 +98,9 @@ export interface formProduct {
     description: string,
     categoryId: string,
     isActive: boolean | true,
-    img: string
+    img: string,
+    isHot: boolean,
+    isNew: boolean
 }
 export interface category {
     id: string,
