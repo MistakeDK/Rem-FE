@@ -60,11 +60,17 @@ const cartSlice = createSlice({
             state.promotionCode = null
             state.promotionType = PromotionType.DIRECT
             state.promotionValue = 0
+        },
+        removeAll: (state) => {
+            state.items = []
+            state.promotionCode = null
+            state.promotionType = PromotionType.DIRECT
+            state.promotionValue = 0
         }
     },
 });
 
-export const { updateQuantity, removeItem, setItems, setPromotion, removePromotion } = cartSlice.actions;
+export const { updateQuantity, removeItem, setItems, setPromotion, removePromotion, removeAll } = cartSlice.actions;
 
 export default cartSlice.reducer;
 

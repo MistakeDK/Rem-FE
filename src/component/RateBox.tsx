@@ -9,7 +9,6 @@ function RateBox({ productId, orderId }: { productId: string, orderId: string })
     const { TextArea } = Input
     const [rateStar, SetRateStar] = useState(5)
     const [review, SetReview] = useState<string>("")
-    const idUser = useSelector((state: RootState) => state.auth.id) || ""
     const [api, contextHolder] = notification.useNotification();
     const openNotificationWithIcon = (type: NotificationType) => {
         api[type]({
@@ -20,7 +19,7 @@ function RateBox({ productId, orderId }: { productId: string, orderId: string })
         SetRateStar(value)
     }
     const sendReview = () => {
-        ReviewService.sendReview({ review, idUser, productId, rateStar, orderId }).then(() => {
+        ReviewService.sendReview({ review, productId, rateStar, orderId }).then(() => {
             openNotificationWithIcon('success')
             setTimeout(() => {
                 window.location.reload()

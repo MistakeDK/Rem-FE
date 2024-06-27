@@ -35,6 +35,7 @@ function AuthorizationOAuth2() {
                 <div className='rounded-2xl w-6/12 border h-80 flex flex-col p-8 items-center justify-around'>
                     <CheckCircleFilled style={{ fontSize: "400%", color: "green" }} />
                     <span>Xác Thực Thành Công </span>
+                    <br />
                     <button onClick={() => { navigate("/") }} className='bg-green-600 h-12 rounded-2xl px-4 hover:text-white transition-colors duration-200 ease-in-out'>Trở lại trang chủ</button>
                 </div>
             )}

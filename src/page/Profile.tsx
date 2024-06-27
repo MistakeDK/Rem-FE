@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Outlet, useNavigate } from 'react-router-dom'
 import { logout } from '~/reducer/authReducer'
+import { removeAll } from '~/reducer/cartReducer'
 import { AppDispatch, RootState } from '~/redux/store'
 import UserService from '~/service/UserService'
 
@@ -15,6 +16,7 @@ function Profile() {
         }).finally(() => {
             localStorage.clear()
             dispatch(logout())
+            dispatch(removeAll())
             navigate("/")
         })
     }

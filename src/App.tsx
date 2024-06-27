@@ -24,12 +24,15 @@ import HomeAdmin from '~/page/Admin/HomeAdmin'
 import ListProduct from '~/page/Admin/ListProduct'
 import EditProduct from '~/page/Admin/EditProduct'
 import CreateProduct from '~/page/Admin/CreateProduct'
+import ScrollToTop from './util/ScrollToTop'
 
 
 function App() {
   return (
     <BrowserRouter>
+
       <Header></Header>
+      <ScrollToTop />
       <Routes>
         <Route path='/' element={<Home />}></Route>
         <Route path='/introduce' element={<Introduce />}></Route>

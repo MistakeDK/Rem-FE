@@ -3,6 +3,7 @@ import Slider from 'react-slick';
 import Util from '~/util/Util';
 import { ProductProps } from '~/config/Types'
 import ProductService from '~/service/ProductService';
+import Product from './Product';
 function NewProductList() {
     const [products, SetProducts] = useState<ProductProps[]>([])
     const settings = {
@@ -17,12 +18,7 @@ function NewProductList() {
     const render = () => {
         return products.map((index) => {
             return (
-                <div className='flex flex-col p-1' key={index.id + "NEW"}>
-                    <img className='hover:scale-90 transition-all' src={index.img} />
-                    <span>{Util.subText(index.name, 18)}</span>
-                    <br />
-                    <span>{index.price.toLocaleString()}</span>
-                </div>
+                <Product product={index} type='NEW' />
             )
         })
     }

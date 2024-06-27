@@ -91,7 +91,7 @@ function ProductList() {
     }, [searchParams])
 
     return (
-        <div className='grid grid-cols-4 p-8'>
+        <div className='grid grid-cols-4 p-8 min-h-screen'>
             <div className='col-span-1'>
                 <div className='flex flex-col mx-8'>
                     <input onChange={(e) => { SetSearch(e.target.value) }} className='rounded-lg border p-2 w-9/12' placeholder='Tên sản phẩm'></input>

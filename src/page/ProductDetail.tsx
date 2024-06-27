@@ -35,7 +35,6 @@ function ProductDetail() {
             ProductService.getById(id).then((res) => {
                 SetProduct(res.data.result)
             })
-            console.log(product)
         }
         CallApi()
     }, [])

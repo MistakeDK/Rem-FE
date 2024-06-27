@@ -5,6 +5,7 @@ import Slider, { Settings } from "react-slick";
 import Util from '~/util/Util';
 import { ProductProps } from '~/config/Types';
 import ProductService from '~/service/ProductService';
+import Product from './Product';
 function HotProductList() {
     const [products, SetProducts] = useState<ProductProps[]>([])
     const settings: Settings = {
@@ -26,21 +27,21 @@ function HotProductList() {
     const render = () => {
         return products.map((index) => {
             return (
-                <div className='flex flex-col p-1' key={index.id + "HOT"}>
-                    <img className='hover:scale-90 transition-all' src={index.img} />
-                    <span>{Util.subText(index.name, 18)}</span>
-                    <br />
-                    <span>{index.price.toLocaleString()}</span>
-                </div>
+                <Product product={index} type='HOT' />
             )
         })
     }
     return (
         <div className='bg-slate-200 w-1/2 rounded-md p-2'>
             <span className='text-2xl font-semibold'>Sản phẩm nổi bật</span>
-            <Slider {...settings}>
-                {render()}
-            </Slider>
+            {
+                products.length > 3 ? <Slider {...settings}>
+                    {render()}
+                </Slider> : <div>
+                    <span>Vui lòng thêm đủ 3 sản phẩm hot để hiện thị</span>
+                </div>
+            }
+
         </div>
     )
 }

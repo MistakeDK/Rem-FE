@@ -4,6 +4,14 @@ interface error {
     code: number,
     message: string
 }
+interface CartItem {
+    id: string,
+    name: string,
+    price: number,
+    img: string,
+    quantity: number,
+    active: boolean
+}
 const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     const day = String(date.getDate()).padStart(2, '0');
@@ -19,10 +27,14 @@ const SetErrorField = (err: AxiosError<error>) => {
     const code = err.response?.data.code
     return ErrorCode.get(code as number)
 }
+const calulateTotal = (cartItem: CartItem[]) => {
+    return cartItem.reduce((total, item) => total + item.price * item.quantity, 0)
+}
 
 const Util = {
     formatDate,
     subText,
-    SetErrorField
+    SetErrorField,
+    calulateTotal
 }
 export default Util

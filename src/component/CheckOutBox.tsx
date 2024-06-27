@@ -24,9 +24,9 @@ function CheckOutBox() {
     const { register,
         handleSubmit,
         formState: { errors },
-        setError
     } = useForm<formCheckOut>()
     const onSubmit: SubmitHandler<formCheckOut> = async (data) => {
+        console.log(data)
         const result = await OrderService.CreateOrder({ ...data }, promotionCode, userId)
         if (data.paymentType === paymentType.CASH) {
             dispatch(removePromotion())

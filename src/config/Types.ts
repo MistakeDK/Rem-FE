@@ -74,9 +74,8 @@ export interface OrderDetail {
     isReview: boolean
 }
 export interface reviewCreation {
-    productId: string | null,
+    productId: string,
     rateStar: number,
-    idUser: string,
     review: string,
     orderId: string
 }
