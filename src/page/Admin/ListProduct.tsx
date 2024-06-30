@@ -90,18 +90,14 @@ function ListProduct() {
         <div className=''>
             <div>
                 <form onSubmit={handleSubmit(onClickSearch)} className='flex space-x-4'>
-                    <div className=''>
-                        <label>Tên sản phẩm: </label>
-                        <input {...register("name")} type='text' className='border-b-2 outline-none'></input>
-                    </div>
-                    <div>
-                        <label>Phân loại: </label>
-                        <select {...register("category")}>
-                            {renderOptionCategory()}
-                            <option value={"All"}>Tất cả</option>
-                        </select>
-                    </div>
-                    <button className='bg-blue-500 text-white rounded-lg px-4'>Tìm kiếm</button>
+                    <label>Tên sản phẩm: </label>
+                    <input {...register("name")} type='text' className='border-b-2 outline-none'></input>
+                    <label>Phân loại: </label>
+                    <select {...register("category")}>
+                        {renderOptionCategory()}
+                        <option value={"All"}>Tất cả</option>
+                    </select>
+                    <button className='mx-4 bg-blue-600 text-white rounded-lg p-1'>Tìm kiếm</button>
                 </form>
                 {products && <Table className='mt-4' columns={columns} dataSource={products} pagination={false} />}
             </div>

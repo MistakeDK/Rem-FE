@@ -11,7 +11,9 @@ const create = (name: string) => {
     return axios({
         url: '/category',
         method: "POST",
-        data: name
+        data: {
+            name: name
+        }
     })
 }
 const CategoryService = {

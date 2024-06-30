@@ -31,8 +31,7 @@ function HomeAdmin() {
             label: 'Quản lý Danh mục',
             icon: <AppstoreOutlined />,
             children: [
-                { key: 'ListCategory', label: 'Danh sách danh mục' },
-                { key: 'CreateCategory', label: 'Thêm danh mục' },
+                { key: 'ListCategory', label: 'Danh sách danh mục' }
             ],
         },
 

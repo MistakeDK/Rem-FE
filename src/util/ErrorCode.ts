@@ -3,5 +3,6 @@ export const ErrorCode = new Map<number, string>([
     [1005, "Mã xác nhận không hợp lệ"],
     [1007, "Tên đăng nhập hoặc Email bị trùng"],
     [1012, "Sai tài khoản hoặc mật khẩu"],
-    [1302, "Mã giảm giá đã tồn tại"]
+    [1302, "Mã giảm giá đã tồn tại"],
+    [1200, "Tên danh mục Đã tồn tại"]
 ])

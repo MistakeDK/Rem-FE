@@ -27,12 +27,12 @@ import CreateProduct from '~/page/Admin/CreateProduct'
 import ScrollToTop from '~/util/ScrollToTop'
 import ListPromotion from '~/page/Admin/ListPromotion'
 import CreatePromotion from '~/page/Admin/CreatePromotion'
+import ListCategory from '~/page/Admin/ListCategory'
 
 
 function App() {
   return (
     <BrowserRouter>
-
       <Header></Header>
       <ScrollToTop />
       <Routes>
@@ -66,6 +66,9 @@ function App() {
             <Route path='promotion'>
               <Route path='ListPromotion' element={<ListPromotion />}></Route>
               <Route path='CreatePromotion' element={<CreatePromotion />}></Route>
+            </Route>
+            <Route path='category'>
+              <Route path='ListCategory' element={<ListCategory />}></Route>
             </Route>
           </Route>
         </Route>
