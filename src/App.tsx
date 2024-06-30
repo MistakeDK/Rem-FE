@@ -24,7 +24,9 @@ import HomeAdmin from '~/page/Admin/HomeAdmin'
 import ListProduct from '~/page/Admin/ListProduct'
 import EditProduct from '~/page/Admin/EditProduct'
 import CreateProduct from '~/page/Admin/CreateProduct'
-import ScrollToTop from './util/ScrollToTop'
+import ScrollToTop from '~/util/ScrollToTop'
+import ListPromotion from '~/page/Admin/ListPromotion'
+import CreatePromotion from '~/page/Admin/CreatePromotion'
 
 
 function App() {
@@ -60,6 +62,10 @@ function App() {
               <Route path='ListProduct' element={<ListProduct />}></Route>
               <Route path='CreateProduct' element={<CreateProduct />}></Route>
               <Route path='ListProduct/:id' element={<EditProduct />}></Route>
+            </Route>
+            <Route path='promotion'>
+              <Route path='ListPromotion' element={<ListPromotion />}></Route>
+              <Route path='CreatePromotion' element={<CreatePromotion />}></Route>
             </Route>
           </Route>
         </Route>

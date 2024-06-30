@@ -10,16 +10,20 @@ function HomeProduct() {
     const [product, SetProduct] = useState<ProductProps[]>([])
     const navigate = useNavigate()
     useEffect(() => {
-        const params = new URLSearchParams()
-        const pageSize = 15
-        params.set("pageSize", pageSize.toString())
+        const paramsProduct = new URLSearchParams()
+        const pageSizePro = 15
+        paramsProduct.set("pageSize", pageSizePro.toString())
+        const paramsCate = new URLSearchParams()
+        const pageSizeCate = 4
+        paramsCate.set("size", pageSizeCate.toString())
         const fetchData = async () => {
             try {
+
                 const [categoryResult, productResult] = await Promise.all([
-                    CategoryService.getList(),
-                    ProductService.getList(params)
+                    CategoryService.getList(paramsCate),
+                    ProductService.getList(paramsProduct)
                 ]);
-                SetCategory(categoryResult.data.result);
+                SetCategory(categoryResult.data.result.items);
                 SetProduct(productResult.data.result.items);
             } catch {
                 message.error("lỗi Server")
@@ -38,6 +42,7 @@ function HomeProduct() {
                 <button onClick={() => onClickCategory(index.name)} className='hover:text-white hover:bg-orange-600 transition-all p-1.5 border border-orange-600 rounded-md' key={index.id}>{index.name}</button>
             )
         })
+
     }
     const renderProduct = () => {
         return (

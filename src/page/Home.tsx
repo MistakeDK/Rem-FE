@@ -3,7 +3,6 @@ import CarouselHome from '~/component/CarouselHome'
 import HomeProduct from '~/component/HomeProduct'
 import HotProductList from '~/component/HotProductList'
 import NewProductList from '~/component/NewProductList'
-import ProductLine from '~/component/ProductLine'
 
 function Home() {
     return (

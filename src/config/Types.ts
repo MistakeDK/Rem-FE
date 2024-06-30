@@ -34,7 +34,8 @@ export type NotificationType = 'success' | 'info' | 'warning' | 'error';
 
 export enum PromotionType {
     PERCENT = "PERCENT",
-    DIRECT = "DIRECT"
+    DIRECT = "DIRECT",
+    ALL = "ALL"
 }
 export enum paymentType {
     VNPAY = "VNPAY",
@@ -104,4 +105,10 @@ export interface formProduct {
 export interface category {
     id: string,
     name: string
+}
+export interface promotion {
+    promotionCode: string,
+    value: number,
+    type: PromotionType,
+    active?: boolean
 }

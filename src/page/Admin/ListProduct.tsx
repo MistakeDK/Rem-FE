@@ -76,7 +76,7 @@ function ListProduct() {
     }, [searchParams])
     useEffect(() => {
         CategoryService.getList().then((res) => {
-            SetCategory(res.data.result)
+            SetCategory(res.data.result.items)
         })
     }, [])
     const renderOptionCategory = () => {
@@ -105,7 +105,7 @@ function ListProduct() {
                 </form>
                 {products && <Table className='mt-4' columns={columns} dataSource={products} pagination={false} />}
             </div>
-            <div className='flex justify-end my-2'>
+            <div className=''>
                 {
                     products && <Pagination defaultCurrent={currentPage} current={currentPage} pageSize={8} total={totalPage} onChange={onChangePage} />
                 }

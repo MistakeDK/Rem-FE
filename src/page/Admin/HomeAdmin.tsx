@@ -9,6 +9,7 @@ import { AppDispatch } from '~/redux/store';
 import LOGO from '~/resources/LOGOCustomize.png'
 import UserService from '~/service/UserService';
 import { logout } from '~/reducer/authReducer'
+import { faTicket } from '@fortawesome/free-solid-svg-icons';
 
 
 type MenuItem = Required<MenuProps>['items'][number];
@@ -49,6 +50,15 @@ function HomeAdmin() {
             icon: <FontAwesomeIcon icon={faFirstOrder} />,
             children: [
                 { key: 'ListOrder', label: "Danh Sách đơn hàng" }
+            ]
+        },
+        {
+            key: 'promotion',
+            label: "Quản lý Khuyến mãi",
+            icon: <FontAwesomeIcon icon={faTicket} />,
+            children: [
+                { key: 'ListPromotion', label: "Danh sách khuyến mãi" },
+                { key: 'CreatePromotion', label: "Thêm Khuyến mãi" }
             ]
         }
     ];

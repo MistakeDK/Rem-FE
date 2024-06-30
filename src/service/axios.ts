@@ -28,13 +28,13 @@ instance.interceptors.response.use(
         return res;
     },
     (err: AxiosError) => {
-        // if (err.response?.status === 401) {
-        //     localStorage.clear()
-        //     window.location.href = '/error401'
-        // }
-        // else if (err.response?.status === 404) {
-        //     window.location.href = '/error404'
-        // }
+        if (err.response?.status === 401) {
+            localStorage.clear()
+            window.location.href = '/error401'
+        }
+        else if (err.response?.status === 404) {
+            window.location.href = '/error404'
+        }
         return Promise.reject(err)
     }
 )

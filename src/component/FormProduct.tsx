@@ -10,13 +10,12 @@ import ProductService from '~/service/ProductService'
 
 
 
-type FormProps = {
-    product?: formProduct
+type Props = {
+    product?: formProduct,
+    category: category[]
 }
-function FormProduct({ product }: FormProps,) {
+function FormProduct({ product, category }: Props) {
     const navigate = useNavigate()
-    const [category, SetCategory] = useState<category[]>([])
-    console.log(product)
     const { register, handleSubmit, setValue, formState: { errors } } = useForm<formProduct>(
         {
             defaultValues: product ? {
@@ -31,11 +30,6 @@ function FormProduct({ product }: FormProps,) {
                 isNew: product.isNew
             } : undefined
         })
-    useEffect(() => {
-        CategoryService.getList().then((res) => {
-            SetCategory(res.data.result)
-        })
-    }, [])
     const renderOption = () => {
         return category.map((index) => {
             return (
@@ -82,7 +76,6 @@ function FormProduct({ product }: FormProps,) {
     const onSubmit = (value: formProduct) => {
         if (product) {
             ProductService.edit(product.id, value).then((res) => {
-
                 message.success("Chỉnh sửa thành công")
             }).catch(() => {
                 message.error("Chỉnh sửa thất bại")
@@ -94,7 +87,9 @@ function FormProduct({ product }: FormProps,) {
                 message.error("Tạo mới thất bại")
             })
         }
-        navigate("/admin/product/ListProduct")
+        setTimeout(() => {
+            navigate("/admin/product/ListProduct")
+        }, 1000)
     }
     const validateName: RegisterOptions<formProduct, "name"> = {
         required: "Vui lòng nhập tên"
@@ -186,7 +181,11 @@ function FormProduct({ product }: FormProps,) {
                             product && <input className='hidden' {...register("id")}></input>
                         }
                         <input className='hidden' {...register("img", validateImg)}></input>
-                        <button className='bg-blue-600 p-2 text-white'>{product ? "Chỉnh sửa sản phẩm" : "Thêm sản phẩm"} </button>
+                        <div className='pt-4'>
+                            <button className='w-full rounded-md bg-blue-600 p-2 text-white'>
+                                Xác nhận
+                            </button>
+                        </div>
                     </div>
                 </div>
             </form>

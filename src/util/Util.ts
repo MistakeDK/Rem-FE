@@ -30,11 +30,15 @@ const SetErrorField = (err: AxiosError<error>) => {
 const calulateTotal = (cartItem: CartItem[]) => {
     return cartItem.reduce((total, item) => total + item.price * item.quantity, 0)
 }
-
+const ConvertNumberPage = (page: number) => {
+    if (page === 0) return 1
+    return page + 1;
+}
 const Util = {
     formatDate,
     subText,
     SetErrorField,
-    calulateTotal
+    calulateTotal,
+    ConvertNumberPage
 }
 export default Util

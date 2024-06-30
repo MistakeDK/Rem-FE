@@ -8,15 +8,19 @@ import ProductService from '~/service/ProductService'
 function EditProduct() {
     const id = useLocation().pathname.split("/").pop()
     const [formProduct, SetFormProduct] = useState<formProduct>()
+    const [category, SetCategory] = useState<category[]>([])
+
     useEffect(() => {
         ProductService.getById(id as string).then((res) => {
             SetFormProduct(res.data.result)
         })
-        console.log(formProduct)
+        CategoryService.getList().then((res) => {
+            SetCategory(res.data.result.items)
+        })
     }, [])
 
     return (
-        formProduct && <FormProduct product={formProduct} ></FormProduct>
+        formProduct && category && <FormProduct product={formProduct} category={category} ></FormProduct>
     )
 }
 
