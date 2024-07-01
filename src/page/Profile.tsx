@@ -14,7 +14,7 @@ function Profile() {
         UserService.logOut().then(() => {
             message.success("Đăng xuất thành công")
         }).finally(() => {
-            localStorage.clear()
+            localStorage.removeItem("token")
             dispatch(logout())
             dispatch(removeAll())
             navigate("/")

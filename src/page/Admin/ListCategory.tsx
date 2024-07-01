@@ -100,7 +100,7 @@ function ListCategory() {
                 {createModal()}
             </div>
             <div className='flex justify-end mt-2'>
-                <Pagination defaultCurrent={currentPage} current={currentPage} pageSize={pageSize} total={totalPage} onChange={changePage} />
+                <Pagination defaultCurrent={currentPage} current={currentPage} pageSize={pageSize} total={totalPage} onChange={changePage} showSizeChanger={false} />
             </div>
         </div>
     )

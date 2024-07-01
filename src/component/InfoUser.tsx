@@ -49,8 +49,6 @@ function InfoUser() {
                         <Input className='w-4/12' disabled defaultValue={userInfo.phone} />
                     </Form.Item>
                 }
-
-
             </Form>
         </div>) : (<Spin />)
     )

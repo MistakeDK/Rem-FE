@@ -76,12 +76,13 @@ function ProductList() {
                 ]);
                 SetProducts(productRes.data.result.items);
                 SetTotalPage(productRes.data.result.totalItem);
-                const transform = categoryRes.data.result.map((index: typeCategory) => ({
+                const transform = categoryRes.data.result.items.map((index: typeCategory) => ({
                     value: index.name,
                     label: index.name
                 }));
                 SetCategory(transform);
             } catch (err) {
+                console.log(err)
                 message.error("Lỗi Server")
             } finally {
                 SetLoading(false)

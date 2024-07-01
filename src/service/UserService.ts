@@ -1,4 +1,4 @@
-import { ChangePasswordForm, FormDataSignUp, LoginType } from "~/config/Types";
+import { ChangePasswordForm, FormDataSignUp } from "~/config/Types";
 import axios from "~/service/axios";
 const login = (username: string, password: string) => {
     return axios({
@@ -70,6 +70,19 @@ const changePassword = (id: string, data: ChangePasswordForm) => {
         }
     })
 }
+const getList = (params: URLSearchParams) => {
+    return axios({
+        url: `/users`,
+        method: "GET",
+        params: params
+    })
+}
+const changeStatus = (email: string) => {
+    return axios({
+        url: `/users/changeStatus/${email}`,
+        method: "PATCH"
+    })
+}
 const UserService = {
     verifyAccount,
     login,
@@ -78,6 +91,8 @@ const UserService = {
     signUp,
     refreshToken,
     getMyInfo,
-    logOut
+    logOut,
+    getList,
+    changeStatus
 }
 export default UserService

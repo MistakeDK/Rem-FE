@@ -28,6 +28,7 @@ import ScrollToTop from '~/util/ScrollToTop'
 import ListPromotion from '~/page/Admin/ListPromotion'
 import CreatePromotion from '~/page/Admin/CreatePromotion'
 import ListCategory from '~/page/Admin/ListCategory'
+import ListUser from './page/Admin/ListUser'
 
 
 function App() {
@@ -69,6 +70,9 @@ function App() {
             </Route>
             <Route path='category'>
               <Route path='ListCategory' element={<ListCategory />}></Route>
+            </Route>
+            <Route path='user'>
+              <Route path='ListUser' element={<ListUser />}></Route>
             </Route>
           </Route>
         </Route>

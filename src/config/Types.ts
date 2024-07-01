@@ -112,3 +112,12 @@ export interface promotion {
     type: PromotionType,
     active?: boolean
 }
+export interface user {
+    username: string,
+    email: string,
+    phone: string,
+    dob: string,
+    role: 'USER' | 'ADMIN',
+    userProvide: 'LOCAL' | 'GOOGLE',
+    isBan: boolean
+}

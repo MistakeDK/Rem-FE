@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { removePromotion, selectTotal } from '~/reducer/cartReducer'
 import { AppDispatch, RootState } from '~/redux/store'
 import OrderService from '~/service/OrderService'
-import { RegisterOptions, SubmitHandler, useForm } from 'react-hook-form'
+import { RegisterOptions, useForm } from 'react-hook-form'
 import { NotificationType, formCheckOut, paymentType } from "~/config/Types"
 import PaymentService from '~/service/PaymentService'
 function CheckOutBox() {
@@ -25,7 +25,7 @@ function CheckOutBox() {
         handleSubmit,
         formState: { errors },
     } = useForm<formCheckOut>()
-    const onSubmit: SubmitHandler<formCheckOut> = async (data) => {
+    const onSubmit = async (data: formCheckOut) => {
         const result = await OrderService.CreateOrder({ ...data }, promotionCode, userId)
         if (data.paymentType === paymentType.CASH) {
             dispatch(removePromotion())
@@ -36,7 +36,10 @@ function CheckOutBox() {
             return;
         }
         PaymentService.paymentVNPay(total, result.data.result).then((res) => {
-            window.open(res.data.result)
+            setTimeout(() => {
+                window.open(res.data.result)
+            }, 300)
+            navigate("/")
         })
     }
     const validateName: RegisterOptions<formCheckOut, "name"> = {

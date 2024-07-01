@@ -50,7 +50,7 @@ function ListProduct() {
             title: "Thao tác",
             key: 'action',
             render: (value, record, index) => {
-                return <button onClick={() => navigate(`${record.id}`)} className='bg-blue-600 text-white p-2 rounded-md'>Xem chi tiết</button>
+                return <button onClick={() => navigate(`${record.id}`)} className='border p-1 rounded-md hover:bg-blue-600 hover:text-white transition-all'>Xem chi tiết</button>
             },
         }
     ]
@@ -103,7 +103,7 @@ function ListProduct() {
             </div>
             <div className=''>
                 {
-                    products && <Pagination defaultCurrent={currentPage} current={currentPage} pageSize={8} total={totalPage} onChange={onChangePage} />
+                    products && <Pagination defaultCurrent={currentPage} current={currentPage} pageSize={8} total={totalPage} onChange={onChangePage} showSizeChanger={false} />
                 }
             </div>
         </div>

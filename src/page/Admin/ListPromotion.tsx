@@ -118,7 +118,7 @@ function ListPromotion() {
                 <Table columns={columns} dataSource={promotions} pagination={false}></Table>
             </div>
             <div className='flex justify-end mt-2'>
-                <Pagination defaultCurrent={currentPage} current={currentPage} pageSize={8} total={totalPage} onChange={onChangePage} />
+                <Pagination defaultCurrent={currentPage} current={currentPage} pageSize={8} total={totalPage} onChange={onChangePage} showSizeChanger={false} />
             </div>
         </div>
     )
