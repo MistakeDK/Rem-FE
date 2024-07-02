@@ -35,11 +35,12 @@ function HotProductList() {
         <div className='bg-slate-200 w-1/2 rounded-md p-2'>
             <span className='text-2xl font-semibold'>Sản phẩm nổi bật</span>
             {
-                products.length > 3 ? <Slider {...settings}>
-                    {render()}
-                </Slider> : <div>
-                    <span>Vui lòng thêm đủ 3 sản phẩm hot để hiện thị</span>
-                </div>
+                products.length >= 3 ?
+                    <Slider {...settings}>
+                        {render()}
+                    </Slider> : <div>
+                        <span>Vui lòng thêm đủ 3 sản phẩm hot để hiện thị</span>
+                    </div>
             }
 
         </div>

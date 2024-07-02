@@ -73,9 +73,7 @@ function HistoryOrder() {
                         <div>
                             <span className='opacity-70'>Giá trị Voucher</span>
                             <br />
-                            <span>{index.promotionType == PromotionType.DIRECT ?
-                                index.valueVoucher?.toLocaleString() :
-                                (index.total * (index.valueVoucher as number / 100)).toLocaleString()}</span>
+                            <span>{Util.valueVoucher(index.promotionType || null, index.valueVoucher as number)}</span>
                         </div>
                         <div>
                             <span className='opacity-70'>Tổng giá trị</span>
@@ -84,7 +82,7 @@ function HistoryOrder() {
                         </div>
                     </div>
                     <div className='bg-gray-400 p-2'>
-                        <Tag color='blue'>{index.status.valueOf()}</Tag>
+                        <Tag color='blue'>{Util.convertStatusOrderToText(index.status)}</Tag>
                         <Tag color='blue'>{index.isPaid ? "Đã Thanh toán" : "Chưa Thanh toán"}</Tag>
                         <Tag color='blue'>{index.paymentType == paymentType.VNPAY ? "VNPAY" : "Tiền mặt"}</Tag>
                         {index.paymentType == paymentType.VNPAY && !index.isPaid &&

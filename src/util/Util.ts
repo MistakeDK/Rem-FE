@@ -1,5 +1,6 @@
 import { AxiosError } from "axios";
 import { ErrorCode } from "./ErrorCode";
+import { PromotionType, Status } from "~/config/Types";
 interface error {
     code: number,
     message: string
@@ -33,11 +34,28 @@ const calulateTotal = (cartItem: CartItem[]) => {
 const ConvertNumberPage = (page: number) => {
     return page + 1
 }
+const convertStatusOrderToText = (id: Status) => {
+    switch (id) {
+        case Status.RECEIVED: return "Đã nhận yêu cầu"
+        case Status.IN_DELIVERY: return "Đang giao hàng"
+        case Status.DELIVERED: return "Đã giao hàng"
+    }
+}
+const valueVoucher = (type: PromotionType | null, value: number) => {
+    switch (type) {
+        case PromotionType.PERCENT: return `${value}%`
+        case PromotionType.DIRECT: return `${value.toLocaleString()}`
+        case null: return 0
+    }
+
+}
 const Util = {
     formatDate,
     subText,
     SetErrorField,
     calulateTotal,
-    ConvertNumberPage
+    ConvertNumberPage,
+    convertStatusOrderToText,
+    valueVoucher
 }
 export default Util

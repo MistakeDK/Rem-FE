@@ -82,7 +82,6 @@ function ProductList() {
                 }));
                 SetCategory(transform);
             } catch (err) {
-                console.log(err)
                 message.error("Lỗi Server")
             } finally {
                 SetLoading(false)
@@ -95,7 +94,7 @@ function ProductList() {
         <div className='grid grid-cols-4 p-8 min-h-screen'>
             <div className='col-span-1'>
                 <div className='flex flex-col mx-8'>
-                    <input onChange={(e) => { SetSearch(e.target.value) }} className='rounded-lg border p-2 w-9/12' placeholder='Tên sản phẩm'></input>
+                    <input onChange={(e) => { SetSearch(e.target.value) }} className='rounded-lg border p-2 w-7/12' placeholder='Tên sản phẩm'></input>
                     <span className='py-2'>Danh mục</span>
                     <Checkbox.Group options={category} onChange={onChange} value={searchCategory} className='py-1 flex flex-col'></Checkbox.Group>
                     <span className='py-2'>Khoảng giá</span>
@@ -111,7 +110,7 @@ function ProductList() {
                         ]}
                         onChange={(value) => SetOption(value)}
                     />
-                    <button onClick={() => { onClickSearch() }} className='rounded-md h-10 w-7/12 text-center border-2 hover:bg-green-400 duration-200 hover:text-white'>
+                    <button onClick={() => { onClickSearch() }} className='rounded-md h-10 w-6/12 text-center border-2 hover:bg-green-400 duration-200 hover:text-white'>
                         Tìm Kiếm
                     </button>
                 </div>

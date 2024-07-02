@@ -58,7 +58,7 @@ export interface Order {
     phone: string
     address: string
     valueVoucher: number | null
-    promotionType: string | null
+    promotionType: PromotionType
     time_Create: string
     isPaid: boolean
     paymentType: paymentType

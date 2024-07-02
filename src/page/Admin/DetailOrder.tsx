@@ -62,18 +62,20 @@ function DetailOrder() {
     }
     return (
         order && <div className='space-y-2'>
-            <div className='flex space-x-2 p-2'>
-                <span>Thời gian đặt hàng: <Tag color='green'>{Util.formatDate(order.time_Create)}</Tag></span>
+            <div className='flex space-x-2 p-2 justify-between'>
+                <div>
+                    <span>Thời gian đặt hàng: <Tag color='green'>{Util.formatDate(order.time_Create)}</Tag></span>
+                    {
+                        order.promotionType && <span>Loại voucher: <Tag color='blue'>{order.promotionType}</Tag></span>
+                    }
+                    {
+                        order.promotionType && <span>Giá trị Voucher: <Tag color='gold'>{Util.valueVoucher(order.promotionType, order.valueVoucher || 0)}</Tag></span>
+                    }
+                    <span>Trạng thái:<Tag color='red'>{Util.convertStatusOrderToText(order.status)}</Tag></span>
+                    <span>Tổng giá trị:<Tag color='red'>{order.total.toLocaleString()}</Tag></span>
+                </div>
                 {
-                    order.promotionType && <span>Loại voucher: <Tag color='blue'>{order.promotionType}</Tag></span>
-                }
-                {
-                    order.promotionType && <span>Giá trị Voucher: <Tag color='gold'>{order.promotionType === PromotionType.DIRECT ? order.valueVoucher?.toLocaleString() : `${order.valueVoucher}%`}</Tag></span>
-                }
-                <span>Trạng thái: <Tag color='red'>{order.status}</Tag></span>
-                <span>Tổng giá trị đơn hàng: <Tag color='red'>{order.total.toLocaleString()}</Tag></span>
-                {
-                    order.status !== Status.DELIVERED && <button onClick={() => onClickChangeStatus()} className='bg-blue-600 border rounded-md p-2 text-white'>Đổi trạng thái đơn hàng</button>
+                    order.status !== Status.DELIVERED && <button onClick={() => onClickChangeStatus()} className='bg-blue-600 border rounded-md p-2 text-white'>Đổi trạng thái</button>
                 }
             </div>
             <Table columns={columns} dataSource={orderDetail} pagination={false}></Table>

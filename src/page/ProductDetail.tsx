@@ -11,11 +11,11 @@ import CartService from '~/service/CartService'
 import ProductService from '~/service/ProductService'
 type NotificationType = 'success' | 'info' | 'warning' | 'error';
 function ProductDetail() {
-    const idUser = useSelector((state: RootState) => state.auth.id) || ""
+    const idUser = useSelector((state: RootState) => state.auth.id)
     const [quantity, SetQuantity] = useState<number>(1)
     const [product, SetProduct] = useState<typeProduct>()
     const location = useLocation()
-    const id = location.pathname.split("/").pop() || ""
+    const id = location.pathname.split("/").pop()
     const [api, contextHolder] = notification.useNotification();
     const openNotificationWithIcon = (type: NotificationType, message: string, description: string) => {
         api[type]({
@@ -32,17 +32,21 @@ function ProductDetail() {
     }
     useEffect(() => {
         const CallApi = async () => {
-            ProductService.getById(id).then((res) => {
+            ProductService.getById(id as string).then((res) => {
                 SetProduct(res.data.result)
             })
         }
         CallApi()
     }, [])
     const addToCart = () => {
-        CartService.changeQuantity(idUser, id, "INCREASE", quantity).then(() => {
+        if (!idUser) {
+            openNotificationWithIcon("error", "Thêm vào giỏ hàng thất bại", "Vui lòng đăng nhập")
+            return
+        }
+        CartService.changeQuantity(idUser as string, id as string, "INCREASE", quantity).then(() => {
             openNotificationWithIcon("success", "Thêm thành công", "")
         }).catch(() => {
-            openNotificationWithIcon("error", "Thêm vào giỏ hàng thất bại", "Vui lòng đăng nhập")
+            message.error("Lỗi Server")
         })
     }
     return (
@@ -93,7 +97,7 @@ function ProductDetail() {
             </div>
             <div className='flex justify-center p-4'>
                 <div className='w-8/12'>
-                    <CommentProduct idProduct={id} />
+                    <CommentProduct idProduct={id as string} />
                 </div>
             </div>
         </div>

@@ -35,7 +35,9 @@ function NewProductList() {
             {
                 products.length >= 3 ? <Slider {...settings}>
                     {render()}
-                </Slider> : <span>Vui lòng thêm đủ 3 sản phẩm Hot để hiện thị</span>
+                </Slider> : <div>
+                    <span>Vui lòng thêm đủ 3 sản phẩm New để hiện thị</span>
+                </div>
             }
 
         </div>
