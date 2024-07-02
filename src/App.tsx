@@ -28,7 +28,9 @@ import ScrollToTop from '~/util/ScrollToTop'
 import ListPromotion from '~/page/Admin/ListPromotion'
 import CreatePromotion from '~/page/Admin/CreatePromotion'
 import ListCategory from '~/page/Admin/ListCategory'
-import ListUser from './page/Admin/ListUser'
+import ListUser from '~/page/Admin/ListUser'
+import ListOrder from '~/page/Admin/ListOrder'
+import DetailOrder from '~/page/Admin/DetailOrder'
 
 
 function App() {
@@ -73,6 +75,10 @@ function App() {
             </Route>
             <Route path='user'>
               <Route path='ListUser' element={<ListUser />}></Route>
+            </Route>
+            <Route path='order'>
+              <Route path='ListOrder' element={<ListOrder />}></Route>
+              <Route path='/admin/order/ListOrder/:id' element={<DetailOrder />}></Route>
             </Route>
           </Route>
         </Route>

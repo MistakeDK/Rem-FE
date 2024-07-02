@@ -42,9 +42,9 @@ export enum paymentType {
     CASH = "CASH"
 }
 export enum Status {
-    RECEIVED = "Đã nhận yêu cầu",
-    IN_DELIVERY = "Đang giao hàng",
-    DELIVERED = "Giao thành công"
+    RECEIVED = "RECEIVED",
+    IN_DELIVERY = "IN_DELIVERY",
+    DELIVERED = "DELIVERED"
 }
 export interface formCheckOut {
     name: string,

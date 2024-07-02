@@ -18,8 +18,30 @@ const getOrderById = (idUser: string, param: URLSearchParams) => {
         params: param
     })
 }
+const getList = (param: URLSearchParams) => {
+    return axios({
+        url: "/orders/getList",
+        method: "GET",
+        params: param
+    })
+}
+const getById = (id: string) => {
+    return axios({
+        url: `/orders/getById/${id}`,
+        method: "GET"
+    })
+}
+const changeStatus = (id: string) => {
+    return axios({
+        url: `/orders/changeStatus/${id}`,
+        method: "PATCH"
+    })
+}
 const OrderService = {
     CreateOrder,
-    getOrderById
+    getOrderById,
+    getList,
+    getById,
+    changeStatus
 }
 export default OrderService
