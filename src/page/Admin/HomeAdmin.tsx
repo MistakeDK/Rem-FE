@@ -1,7 +1,7 @@
 import { AppstoreOutlined, ProductOutlined, UserOutlined } from '@ant-design/icons';
 import { faFirstOrder } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Menu, MenuProps, message } from 'antd';
+import { Divider, Menu, MenuProps, message } from 'antd';
 import React from 'react'
 import { useDispatch } from 'react-redux';
 import { Outlet, useNavigate } from 'react-router-dom'
@@ -9,7 +9,7 @@ import { AppDispatch } from '~/redux/store';
 import LOGO from '~/resources/LOGOCustomize.png'
 import UserService from '~/service/UserService';
 import { logout } from '~/reducer/authReducer'
-import { faTicket } from '@fortawesome/free-solid-svg-icons';
+import { faChartSimple, faTicket } from '@fortawesome/free-solid-svg-icons';
 
 
 type MenuItem = Required<MenuProps>['items'][number];
@@ -59,10 +59,24 @@ function HomeAdmin() {
                 { key: 'ListPromotion', label: "Danh sách khuyến mãi" },
                 { key: 'CreatePromotion', label: "Thêm Khuyến mãi" }
             ]
+        },
+        {
+            type: 'divider'
+        },
+        {
+            key: 'stats',
+            label: "Thống kê",
+            icon: <FontAwesomeIcon icon={faChartSimple} />
         }
     ];
     const onClick: MenuProps['onClick'] = (e) => {
-        navigate(`${e.keyPath[1]}/${e.keyPath[0]}`)
+        if (e.keyPath[1]) {
+            navigate(`${e.keyPath[1]}/${e.keyPath[0]}`)
+        }
+        else {
+
+            navigate(`${e.keyPath[0]}`)
+        }
     };
     const onClickLogout = () => {
         UserService.logOut().then((res) => {

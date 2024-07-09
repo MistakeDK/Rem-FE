@@ -31,6 +31,7 @@ import ListCategory from '~/page/Admin/ListCategory'
 import ListUser from '~/page/Admin/ListUser'
 import ListOrder from '~/page/Admin/ListOrder'
 import DetailOrder from '~/page/Admin/DetailOrder'
+import Stats from './page/Admin/Stats'
 
 
 function App() {
@@ -80,6 +81,7 @@ function App() {
               <Route path='ListOrder' element={<ListOrder />}></Route>
               <Route path='/admin/order/ListOrder/:id' element={<DetailOrder />}></Route>
             </Route>
+            <Route path='stats' element={<Stats />}></Route>
           </Route>
         </Route>
         <Route path='*' element={<ErrorCode404 />}></Route>

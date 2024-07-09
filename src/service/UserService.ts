@@ -83,6 +83,12 @@ const changeStatus = (email: string) => {
         method: "PATCH"
     })
 }
+const getStat = () => {
+    return axios({
+        url: `/users/stat`,
+        method: "GET"
+    })
+}
 const UserService = {
     verifyAccount,
     login,
@@ -93,6 +99,7 @@ const UserService = {
     getMyInfo,
     logOut,
     getList,
-    changeStatus
+    changeStatus,
+    getStat
 }
 export default UserService

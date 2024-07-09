@@ -37,11 +37,18 @@ const changeStatus = (id: string) => {
         method: "PATCH"
     })
 }
+const getStat = () => {
+    return axios({
+        url: "/orders/getStat",
+        method: "GET"
+    })
+}
 const OrderService = {
     CreateOrder,
     getOrderById,
     getList,
     getById,
-    changeStatus
+    changeStatus,
+    getStat
 }
 export default OrderService
