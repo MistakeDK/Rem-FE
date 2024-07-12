@@ -38,7 +38,7 @@ function CommentProduct({ idProduct }: { idProduct: string }) {
                 <div className='flex'>
                     <Avatar className='mt-1' style={{ backgroundColor: '#87d068' }} size={'large'} icon={<UserOutlined />} />
                     <div className='mx-2 flex flex-col'>
-                        <span>{index.username} {Util.formatDate(index.timeCreate)}</span>
+                        <span>{index.username}-{Util.formatDate(index.timeCreate)}</span>
                         <Rate value={index.rateStar} disabled ></Rate>
                         <p className='mt-1'>
                             {index.review}
@@ -56,7 +56,7 @@ function CommentProduct({ idProduct }: { idProduct: string }) {
     const borderComment = () => {
         return (
             comment.length !== 0 ? (
-                <div className='flex flex-col justify-center w-6/12 py-2'>
+                <div className='flex flex-col justify-center lg:w-6/12 py-2'>
                     {renderListComment()}
                 </div>
             ) : (

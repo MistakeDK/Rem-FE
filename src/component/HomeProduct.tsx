@@ -63,12 +63,12 @@ function HomeProduct() {
         <div className='flex justify-center bg-slate-200 p-4 rounded-md'>
             <div className='flex flex-col w-full'>
                 <div className='flex justify-between'>
-                    <span className='px-4 text-2xl'>IN STOCK</span>
-                    <div className='space-x-4'>
+                    <span className='px-4 text-2xl hidden lg:block'>IN STOCK</span>
+                    <div className='lg:space-x-4 space-x-2 flex'>
                         {category && renderCate()}
                     </div>
                 </div>
-                <div className='grid grid-cols-5'>
+                <div className='grid lg:grid-cols-5 grid-cols-2'>
                     {renderProduct()}
                 </div>
             </div>

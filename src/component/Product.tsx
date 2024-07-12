@@ -6,7 +6,7 @@ function Product({ product, type }: { product: ProductProps, type: string }) {
     const navigate = useNavigate()
     return (
         <div onClick={() => navigate(`/product/${id}`)} className='flex flex-col p-1' key={id + type}>
-            <img className='hover:scale-90 transition-all' src={img} />
+            <img className='hover:scale-90 transition-all w-80' src={img} />
             <span>{Util.subText(name, 18)}</span>
             <span>{price.toLocaleString()}</span>
         </div>

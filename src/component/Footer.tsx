@@ -7,7 +7,7 @@ function Footer() {
     }
     return (
         <div className='w-full flex justify-center p-8 bg-red-500'>
-            <div className='grid grid-cols-3 text-white gap-x-40'>
+            <div className='grid lg:grid-cols-3 grid-cols-1 text-white gap-x-40'>
                 <div className='text-xl space-y-4'>
                     <span className='text-2xl'>CHÍNH SÁCH</span>
                     <ul>

@@ -30,7 +30,7 @@ function NewProductList() {
         })
     }, [])
     return (
-        <div className='bg-slate-200 w-1/2 rounded-md p-2'>
+        <div className='bg-slate-200 lg:w-1/2 rounded-md p-2 lg:mt-0 mt-4'>
             <span className='text-2xl font-semibold'>Sản phẩm mới</span>
             {
                 products.length >= 3 ? <Slider {...settings}>

@@ -54,7 +54,7 @@ function ProductDetail() {
         <div className='min-h-screen'>
             <div className='flex justify-center p-4'>
                 {contextHolder}
-                <div className='w-8/12 grid grid-cols-2 gap-8'>
+                <div className='lg:w-8/12 grid lg:grid-cols-2 gap-8'>
                     <div>
                         <img src={product?.img} />
                     </div>
@@ -79,23 +79,25 @@ function ProductDetail() {
                                 <FontAwesomeIcon icon={faPhone} size='2x' opacity={"0.8"} color='green' />
                                 <span className='px-4'>Liên hệ 24/7</span>
                             </div>
-                            <div className='items-center flex w-4/12 h-14 mt-4 border rounded-2xl border-gray-950 text-center'>
-                                <button onClick={() => { decrease() }} className='w-1/3'>
-                                    <FontAwesomeIcon icon={faMinus} />
-                                </button>
-                                <span className='w-1/3'>{quantity}</span>
-                                <button onClick={() => { increase() }} className='w-1/3'>
-                                    <FontAwesomeIcon icon={faPlus} />
+                            <div className='lg:block flex space-x-4 lg:space-x-0'>
+                                <div className='items-center flex w-4/12 h-14 mt-4 border rounded-2xl border-gray-950 text-center'>
+                                    <button onClick={() => { decrease() }} className='w-1/3'>
+                                        <FontAwesomeIcon icon={faMinus} />
+                                    </button>
+                                    <span className='w-1/3'>{quantity}</span>
+                                    <button onClick={() => { increase() }} className='w-1/3'>
+                                        <FontAwesomeIcon icon={faPlus} />
+                                    </button>
+                                </div>
+                                <button onClick={() => addToCart()} className='mt-4 bg-green-600 w-fit p-3 rounded-lg text-white'>
+                                    Thêm vào giỏ hàng ngay
                                 </button>
                             </div>
-                            <button onClick={() => addToCart()} className='mt-4 bg-green-600 w-fit p-3 rounded-lg text-white'>
-                                Thêm vào giỏ hàng ngay
-                            </button>
                         </div>
                     </div>
                 </div>
             </div>
-            <div className='flex justify-center p-4'>
+            <div className='flex lg:justify-center p-4'>
                 <div className='w-8/12'>
                     <CommentProduct idProduct={id as string} />
                 </div>

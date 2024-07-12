@@ -32,7 +32,7 @@ function HotProductList() {
         })
     }
     return (
-        <div className='bg-slate-200 w-1/2 rounded-md p-2'>
+        <div className='bg-slate-200 lg:w-1/2 rounded-md p-2'>
             <span className='text-2xl font-semibold'>Sản phẩm nổi bật</span>
             {
                 products.length >= 3 ?
