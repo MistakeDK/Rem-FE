@@ -63,11 +63,11 @@ export default function Login() {
     }
     return (
         <div className="flex justify-center min-h-screen">
-            <div className="w-9/12">
-                <div className="grid grid-cols-2 gap-1">
-                    <div className="w-8/12 m-auto">
-                        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
-                            <img src={LOGOCustomize} />
+            <div className="lg:w-9/12">
+                <div className="grid lg:grid-cols-2 grid-cols-1 gap-1">
+                    <div className="lg:w-8/12 m-auto">
+                        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col min-w-80">
+                            <img className="lg:block hidden" src={LOGOCustomize} />
                             <label className="w-fit">Tài khoản</label>
                             <input {...register("username", validateUsername)} className="border rounded-lg focus:outline-none h-9 p-2" type="text" name="username"></input>
                             {errors.username && <div className='text-red-500'>{errors.username.message}</div>}
@@ -90,7 +90,7 @@ export default function Login() {
                             </div>
                         </form>
                     </div>
-                    <div>
+                    <div className="hidden lg:block">
                         <img src={WelcomeIMG} />
                     </div>
                 </div>

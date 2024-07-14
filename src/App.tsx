@@ -37,7 +37,7 @@ import Stats from './page/Admin/Stats'
 function App() {
   return (
     <BrowserRouter>
-      {/* <Header></Header> */}
+      <Header></Header>
       <ScrollToTop />
       <Routes>
         <Route path='/' element={<Home />}></Route>

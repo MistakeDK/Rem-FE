@@ -75,8 +75,8 @@ function SignUp() {
     }
     const formSignUp = () => {
         return (
-            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col min-h-screen">
-                <img src={LOGOCustomize} />
+            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col min-h-screen min-w-80">
+                <img className="hidden" src={LOGOCustomize} />
                 <label className="w-fit">Tên đăng nhập</label>
                 <input {...register("username", validateUsername)} className="border rounded-lg focus:outline-none h-9 p-2" type="text" name="username" ></input>
                 {errors.username && <div className='text-red-500'>{errors.username.message}</div>}
@@ -110,12 +110,12 @@ function SignUp() {
     }
     return (
         <div className="flex justify-center">
-            <div className="w-9/12">
-                <div className="grid grid-cols-2 gap-1">
-                    <div className="w-9/12 m-auto">
+            <div className="lg:w-9/12">
+                <div className="grid lg:grid-cols-2 gap-1">
+                    <div className="lg:w-9/12 m-auto">
                         {!signUpSuccess ? formSignUp() : waitScreen()}
                     </div>
-                    <div>
+                    <div className="hidden lg:block">
                         <img src={WelcomeIMG} />
                     </div>
                 </div>
