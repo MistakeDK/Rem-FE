@@ -53,7 +53,7 @@ function HistoryOrder() {
     const renderListOrder = () => {
         return order.map((index) => {
             return (
-                <div className='flex flex-col  rounded-md'>
+                <div className='flex flex-col rounded-md'>
                     <div className='bg-gray-400 grid grid-cols-5 text-center rounded-t-md'>
                         <div>
                             <span className='opacity-70'>Thời gian đặt hàng</span>

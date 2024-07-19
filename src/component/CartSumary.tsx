@@ -46,7 +46,7 @@ function CartSumary() {
     }
     const ModalCheckBox = () => {
         return (
-            <Modal title={"Thanh Toán đơn hàng của bạn"} open={isModalOpen} width={"30%"} footer={null} onCancel={CloseModal}>
+            <Modal title={"Thanh Toán đơn hàng của bạn"} open={isModalOpen} footer={null} onCancel={CloseModal}>
                 <CheckOutBox />
             </Modal>
         )

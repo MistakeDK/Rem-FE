@@ -64,14 +64,14 @@ function CartItem({ prop }: { prop: prop }) {
     return (
         <div>
             <div className='flex my-2'>
-                <img className='w-48 rounded-md' src={prop.img} />
-                <div className='flex flex-col mx-4 w-full'>
-                    <div className='w-full flex justify-between font-bold text-xl'>
+                <img className='lg:w-48 lg:h-48 w-36 h-36  rounded-md' src={prop.img} />
+                <div className='flex flex-col lg:mx-4 mx-2 w-full'>
+                    <div className='w-full flex lg:justify-between flex-col lg:flex-row font-bold text-xl'>
                         <span>{prop.name}</span>
-                        <span className='text-right'>{prop.price.toLocaleString()}</span>
+                        <span className='lg:text-right'>{prop.price.toLocaleString()}</span>
                     </div>
                     <span className='font-semibold text-gray-600'>Số lượng:{quantity}</span>
-                    <div className='items-center flex w-2/12 h-20 mt-4 border rounded-2xl border-gray-950 text-center'>
+                    <div className='items-center flex lg:w-2/12 w-8/12 lg:h-20 mt-4 border rounded-2xl border-gray-950 text-center'>
                         <button className='w-1/3' onClick={() => decrease()}>
                             <FontAwesomeIcon icon={faMinus} />
                         </button>
@@ -80,7 +80,7 @@ function CartItem({ prop }: { prop: prop }) {
                             <FontAwesomeIcon icon={faPlus} />
                         </button>
                     </div>
-                    <div className='w-full flex justify-end h-full items-end'>
+                    <div className='w-full lg:flex justify-end h-full items-end hidden'>
                         <button onClick={() => { remove() }}>
                             <FontAwesomeIcon icon={faTrashCan} />
                         </button>

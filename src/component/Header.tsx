@@ -98,10 +98,18 @@ function Header() {
                                             {
                                                 user ? (
                                                     <button onClick={() => goNavigate("/profile")} className='p-2 hover:bg-slate-600 hover:text-white transition-all'>{user}</button>
-
                                                 ) : (
                                                     <button onClick={() => goNavigate("/login")} className='p-2 hover:bg-slate-600 hover:text-white transition-all'>Đăng nhập</button>
                                                 )
+                                            }
+                                            {
+                                                user && <button onClick={() => goNavigate("/cart")} className='p-2 hover:bg-slate-600 hover:text-white transition-all'>Giỏ hàng</button>
+                                            }
+                                            {
+                                                user && <button onClick={() => goNavigate("/profile/HistoryOrder")} className='p-2 hover:bg-slate-600 hover:text-white transition-all'>Lịch sử đơn hàng</button>
+                                            }
+                                            {
+                                                user && <button onClick={() => goNavigate("/profile/ChangePassword")} className='p-2 hover:bg-slate-600 hover:text-white transition-all'>Đổi Mật khẩu</button>
                                             }
                                             {
                                                 user && <button onClick={() => logOut()} className='p-2 hover:bg-slate-600 hover:text-white transition-all'>Đăng xuất</button>

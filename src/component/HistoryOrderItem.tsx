@@ -22,8 +22,8 @@ function HistoryOrderItem({ order, idOrder, isPaid }: { order: OrderDetail[], id
     const renderList = () => {
         return order.map((index) => {
             return (
-                <div className='flex p-2 m-auto'>
-                    <img className='w-56 h-56' src={index.img} />
+                <div className='flex flex-col lg:flex-row p-2 m-auto'>
+                    <img className='lg:w-56 lg:h-56' src={index.img} />
                     <div className='flex flex-col mx-4 font-semibold'>
                         <span>{index.productName}</span>
                         <span>Giá Tiền: {index.price.toLocaleString()} VND</span>

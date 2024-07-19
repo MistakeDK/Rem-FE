@@ -42,8 +42,8 @@ function ListCart() {
     }, [])
 
     return (
-        <div className='flex flex-col'>
-            <div className='min-h-svh p-4 border border-gray-300 rounded-lg divide-y-2'>
+        <div className='flex flex-col mb-4'>
+            <div className='lg:min-h-svh p-4 border border-gray-300 rounded-lg divide-y-2'>
                 {cartItem.length > 0 ? render() : listCartEmptyScreen()}
             </div>
         </div>)

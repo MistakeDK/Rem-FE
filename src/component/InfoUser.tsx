@@ -21,36 +21,37 @@ function InfoUser() {
         })
     }, [])
     return (
-        !isLoading ? (<div>
-            <span className='font-semibold'>Thông tin cá nhân</span>
-            <div className='w-full border h-0.5 bg-gray-400'></div>
-            <Form className='mt-12'
-                labelCol={{ span: 8 }}
-                wrapperCol={{ span: 16 }}>
-                <Form.Item<userInfo>
-                    label="Tên tài khoản"
-                    name="username"
-                >
-                    <Input className='w-4/12' disabled defaultValue={userInfo?.username} />
-                </Form.Item>
-                {
-                    userInfo?.email && <Form.Item<userInfo>
-                        label="Email"
-                        name="email"
+        !isLoading ? (
+            <div>
+                <span className='font-semibold'>Thông tin cá nhân</span>
+                <div className='w-full border h-0.5 bg-gray-400'></div>
+                <Form className='lg:mt-12'
+                    labelCol={{ span: 8 }}
+                    wrapperCol={{ span: 16 }}>
+                    <Form.Item<userInfo>
+                        label="Tên tài khoản"
+                        name="username"
                     >
-                        <Input className='w-4/12' disabled defaultValue={userInfo.email} />
+                        <Input className='lg:w-4/12' disabled defaultValue={userInfo?.username} />
                     </Form.Item>
-                }
-                {
-                    userInfo?.phone && <Form.Item<userInfo>
-                        label="Số điện thoại"
-                        name="phone"
-                    >
-                        <Input className='w-4/12' disabled defaultValue={userInfo.phone} />
-                    </Form.Item>
-                }
-            </Form>
-        </div>) : (<Spin />)
+                    {
+                        userInfo?.email && <Form.Item<userInfo>
+                            label="Email"
+                            name="email"
+                        >
+                            <Input className='lg:w-4/12' disabled defaultValue={userInfo.email} />
+                        </Form.Item>
+                    }
+                    {
+                        userInfo?.phone && <Form.Item<userInfo>
+                            label="Số điện thoại"
+                            name="phone"
+                        >
+                            <Input className='lg:w-4/12' disabled defaultValue={userInfo.phone} />
+                        </Form.Item>
+                    }
+                </Form>
+            </div>) : (<Spin />)
     )
 }
 
